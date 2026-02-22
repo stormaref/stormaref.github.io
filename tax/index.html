@@ -453,7 +453,7 @@
 
         const currencyFormatter = new Intl.NumberFormat("en-US");
         const formatCurrency = (amount) => currencyFormatter.format(amount);
-        const formatWithUnit = (amount) => formatCurrency(amount) + CURRENCY_SUFFIX;
+        const formatWithUnit = (amount) => toPersianDigits(formatCurrency(amount)) + CURRENCY_SUFFIX;
 
         function toPersianDigits(str) {
             return String(str).replace(/\d/g, (d) => PERSIAN_DIGITS[d]);
@@ -493,8 +493,14 @@
             };
         }
 
+        function toEnglishDigits(str) {
+            return str
+                .replace(/[۰-۹]/g, (d) => d.charCodeAt(0) - 0x06F0)
+                .replace(/[٠-٩]/g, (d) => d.charCodeAt(0) - 0x0660);
+        }
+
         function sanitizeNumericInput(value) {
-            return value.replace(/\D/g, "");
+            return toEnglishDigits(value).replace(/\D/g, "");
         }
 
         function renderTaxTable(brackets, tableBody) {
@@ -585,7 +591,7 @@
 
             els.input.addEventListener("input", (e) => {
                 const digits = sanitizeNumericInput(e.target.value);
-                e.target.value = digits ? formatCurrency(digits) : "";
+                e.target.value = digits ? toPersianDigits(formatCurrency(digits)) : "";
                 recalculate();
             });
 
