@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <title>محاسبه مالیات بر حقوق ۱۴۰۵ | محاسبه‌گر آنلاین مالیات حقوق و دستمزد</title>
+    <meta name="description"
+        content="محاسبه آنلاین مالیات بر حقوق سال ۱۴۰۵ به صورت پلکانی — معافیت مالیاتی، بیمه تأمین اجتماعی، حقوق خالص دریافتی کارمندان بخش خصوصی و دولتی. محاسبه دقیق و لحظه‌ای بر اساس جدول مالیاتی جدید.">
+    <meta http-equiv="content-language" content="fa">
+    <meta name="keywords" content="مالیات حقوق, محاسبه مالیات, مالیات ۱۴۰۵, مالیات بر حقوق, فیش حقوقی, محاسبه حقوق, مالیات حقوق و دستمزد, بیمه تأمین اجتماعی, حقوق خالص, جدول مالیات پلکانی">
+    <meta name="author" content="محاسبه‌گر مالیات حقوق">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://stormaref.github.io/tax/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://stormaref.github.io/tax/">
+    <meta property="og:title" content="محاسبه مالیات بر حقوق ۱۴۰۵ | محاسبه‌گر آنلاین">
+    <meta property="og:description" content="محاسبه آنلاین مالیات حقوق سال ۱۴۰۵ به صورت پلکانی. معافیت مالیاتی، بیمه تأمین اجتماعی و حقوق خالص دریافتی را فوری محاسبه کنید.">
+    <meta property="og:image" content="https://stormaref.github.io/favicon.png">
+    <meta property="og:locale" content="fa_IR">
+    <meta property="og:site_name" content="محاسبه‌گر مالیات حقوق">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://stormaref.github.io/tax/">
+    <meta name="twitter:title" content="محاسبه مالیات بر حقوق ۱۴۰۵ | محاسبه‌گر آنلاین">
+    <meta name="twitter:description" content="محاسبه آنلاین مالیات حقوق سال ۱۴۰۵ به صورت پلکانی. معافیت مالیاتی، بیمه تأمین اجتماعی و حقوق خالص دریافتی را فوری محاسبه کنید.">
+    <meta name="twitter:image" content="https://stormaref.github.io/favicon.png">
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "محاسبه‌گر مالیات بر حقوق ۱۴۰۵",
+        "url": "https://stormaref.github.io/tax/",
+        "description": "محاسبه آنلاین مالیات بر حقوق سال ۱۴۰۵ به صورت پلکانی با در نظر گرفتن معافیت مالیاتی و بیمه تأمین اجتماعی",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "All",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "IRR"
+        },
+        "inLanguage": "fa",
+        "browserRequirements": "Requires JavaScript"
+    }
+    </script>
+
+    <link href="/favicon.png" rel="shortcut icon" type="image/x-icon">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/favicon.png">
+    <style>
+        @font-face {
+            font-family: "Samim";
+            src: url('/JalaliDatePicker/assets/Samim/Samim-FD.woff2') format('woff2'),
+                url('Samim/Samim-FD.woff') format('woff'),
+                url('/JalaliDatePicker/assets/Samim/Samim-FD.ttf') format('truetype');
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --primary-light: #dbeafe;
+            --accent: #059669;
+            --accent-light: #d1fae5;
+            --bg: #f0f4f8;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+            --radius: 16px;
+        }
+
+        body {
+            font-family: Samim, Tahoma, sans-serif;
+            font-size: 15px;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 16px 80px;
+        }
+
+        header {
+            text-align: center;
+            padding: 48px 16px 0;
+            max-width: 600px;
+        }
+
+        header h1 {
+            font-size: clamp(1.3rem, 4vw, 1.75rem);
+            font-weight: 800;
+            line-height: 1.6;
+            color: var(--text);
+        }
+
+        header h1 span {
+            color: var(--primary);
+        }
+
+        header p {
+            margin-top: 12px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 36px 32px;
+            margin-top: 32px;
+            width: 100%;
+            max-width: 520px;
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 10px;
+        }
+
+        .input-group .unit-badge {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .input-group input {
+            width: 100%;
+            height: 52px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            font-size: 1.15rem;
+            padding: 0 16px;
+            color: var(--text);
+            font-family: Samim, Tahoma, sans-serif;
+            background: #f8fafc;
+            transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+            text-align: center;
+            direction: ltr;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px var(--primary-light);
+            background: #fff;
+        }
+
+        .input-group input::placeholder {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            direction: rtl;
+        }
+
+        .results {
+            margin-top: 28px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .result-item {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .result-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        .result-item.salary-result {
+            grid-column: 1 / -1;
+            background: var(--accent-light);
+            border-color: #a7f3d0;
+        }
+
+        .result-item .label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .result-item .value {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text);
+            direction: ltr;
+            unicode-bidi: plaintext;
+        }
+
+        .result-item.salary-result .value {
+            color: var(--accent);
+            font-size: 1.35rem;
+        }
+
+        .result-placeholder {
+            text-align: center;
+            margin-top: 28px;
+            padding: 20px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            background: #f8fafc;
+            border-radius: 12px;
+            border: 1px dashed var(--border);
+        }
+
+        .notice {
+            margin-top: 16px;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            text-align: center;
+            line-height: 1.8;
+        }
+
+        .tax-table {
+            margin-top: 16px;
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.82rem;
+        }
+
+        .tax-table th,
+        .tax-table td {
+            padding: 8px 12px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .tax-table th {
+            background: #f1f5f9;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.78rem;
+        }
+
+        .tax-table td {
+            color: var(--text);
+        }
+
+        .tax-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        details {
+            margin-top: 24px;
+        }
+
+        details summary {
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: var(--primary);
+            font-weight: 600;
+            text-align: center;
+            padding: 8px;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+
+        details summary:hover {
+            background: var(--primary-light);
+        }
+
+        .year-selector {
+            display: flex;
+            gap: 0;
+            margin-bottom: 24px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .year-selector button {
+            flex: 1;
+            padding: 10px 0;
+            font-family: Samim, Tahoma, sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border: none;
+            background: #f8fafc;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .year-selector button:not(:last-child) {
+            border-left: 1px solid var(--border);
+        }
+
+        .year-selector button.active {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .year-selector button:not(.active):hover {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: var(--card-bg);
+            border-top: 1px solid var(--border);
+            padding: 12px 16px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            z-index: 10;
+        }
+
+        .bottom-bar a {
+            color: var(--primary);
+            font-weight: 700;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .bottom-bar a:hover {
+            color: #1d4ed8;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                padding: 24px 20px;
+            }
+
+            .results {
+                grid-template-columns: 1fr;
+            }
+
+            .result-item.salary-result {
+                grid-column: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>محاسبه‌گر مالیات بر حقوق <span id="header-year">سال ۱۴۰۵</span></h1>
+        <p>محاسبه آنلاین مقدار مالیات حقوق کارمندان در فیش حقوقی</p>
+    </header>
+
+    <div class="card">
+        <div class="year-selector" id="year-selector">
+            <button data-year="1404">۱۴۰۴</button>
+            <button data-year="1405" class="active">۱۴۰۵</button>
+        </div>
+
+        <div class="input-group">
+            <label>
+                حقوق مشمول مالیات را به <span class="unit-badge">تومان</span> وارد کنید
+            </label>
+            <input type="text" inputmode="numeric" placeholder="مثلاً ۱۵,۰۰۰,۰۰۰" id="salary" autocomplete="off">
+        </div>
+
+        <div id="result-placeholder" class="result-placeholder">
+            مبلغ حقوق را وارد کنید تا محاسبه انجام شود
+        </div>
+
+        <div id="results" class="results" style="display: none;">
+            <div class="result-item salary-result">
+                <div class="label">حقوق دریافتی (خالص)</div>
+                <div class="value" id="net-salary">—</div>
+            </div>
+            <div class="result-item">
+                <div class="label">مالیات</div>
+                <div class="value" id="tax-value">—</div>
+            </div>
+            <div class="result-item">
+                <div class="label">بیمه تأمین اجتماعی (۷٪)</div>
+                <div class="value" id="insurance-value">—</div>
+            </div>
+        </div>
+
+        <p class="notice">
+            توجه: این ابزار صرفاً مالیات و سهم بیمه کارمند (۷٪) را محاسبه می‌کند؛ سایر کسورات لحاظ نشده است.
+        </p>
+
+        <details id="tax-table-details">
+            <summary id="tax-table-summary">جدول پلکانی مالیات ۱۴۰۵</summary>
+            <table class="tax-table">
+                <thead>
+                    <tr>
+                        <th>پله</th>
+                        <th>از (تومان)</th>
+                        <th>تا (تومان)</th>
+                        <th>نرخ</th>
+                    </tr>
+                </thead>
+                <tbody id="tax-table-body"></tbody>
+            </table>
+        </details>
+    </div>
+
+    <div class="bottom-bar">
+        برای حمایت از این صفحه و رواج فرهنگ اوپن‌سورس در ایران،
+        <a href="https://github.com/stormaref/tax" target="_blank" rel="noopener">ریپازیتوری گیت‌هاب</a>
+        را ستاره بدهید
+    </div>
+
+    <script>
+        "use strict";
+
+        const TAX_BRACKETS_BY_YEAR = Object.freeze({
+            1404: Object.freeze([
+                { threshold: 0,          rate: 0    },
+                { threshold: 24_000_000, rate: 0.10 },
+                { threshold: 30_000_000, rate: 0.15 },
+                { threshold: 38_000_000, rate: 0.20 },
+                { threshold: 50_000_000, rate: 0.25 },
+                { threshold: 66_666_667, rate: 0.30 },
+            ]),
+            1405: Object.freeze([
+                { threshold: 0,           rate: 0    },
+                { threshold: 40_000_000,  rate: 0.10 },
+                { threshold: 80_000_000,  rate: 0.15 },
+                { threshold: 100_000_000, rate: 0.20 },
+                { threshold: 120_000_000, rate: 0.25 },
+                { threshold: 140_000_000, rate: 0.30 },
+            ]),
+        });
+
+        const INSURANCE_RATE = 0.07;
+        const CURRENCY_SUFFIX = " تومان";
+        const PERSIAN_DIGITS = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
+
+        const currencyFormatter = new Intl.NumberFormat("en-US");
+        const formatCurrency = (amount) => currencyFormatter.format(amount);
+        const formatWithUnit = (amount) => formatCurrency(amount) + CURRENCY_SUFFIX;
+
+        function toPersianDigits(str) {
+            return String(str).replace(/\d/g, (d) => PERSIAN_DIGITS[d]);
+        }
+
+        function formatPersianCurrency(amount) {
+            return toPersianDigits(formatCurrency(amount));
+        }
+
+        function calculateTax(grossSalary, brackets) {
+            let totalTax = 0;
+            let remaining = grossSalary;
+
+            for (let i = brackets.length - 1; i >= 1; i--) {
+                const { threshold, rate } = brackets[i];
+                if (remaining > threshold) {
+                    totalTax += (remaining - threshold) * rate;
+                    remaining = threshold;
+                }
+            }
+
+            return Math.round(totalTax);
+        }
+
+        function calculateInsurance(grossSalary) {
+            return Math.round(grossSalary * INSURANCE_RATE);
+        }
+
+        function calculateBreakdown(grossSalary, brackets) {
+            const tax = calculateTax(grossSalary, brackets);
+            const insurance = calculateInsurance(grossSalary);
+            return {
+                gross: grossSalary,
+                tax,
+                insurance,
+                net: grossSalary - tax - insurance,
+            };
+        }
+
+        function sanitizeNumericInput(value) {
+            return value.replace(/\D/g, "");
+        }
+
+        function renderTaxTable(brackets, tableBody) {
+            const rows = brackets.map((bracket, i) => {
+                const isLast = i === brackets.length - 1;
+                const from = formatPersianCurrency(bracket.threshold);
+                const to = isLast ? "به بالا" : formatPersianCurrency(brackets[i + 1].threshold);
+                const rate = bracket.rate === 0
+                    ? "معاف"
+                    : toPersianDigits(bracket.rate * 100) + "٪";
+
+                return `<tr>
+                    <td>${toPersianDigits(i + 1)}</td>
+                    <td>${from}</td>
+                    <td>${to}</td>
+                    <td>${rate}</td>
+                </tr>`;
+            });
+
+            tableBody.innerHTML = rows.join("");
+        }
+
+        function initCalculator() {
+            let selectedYear = 1405;
+
+            const els = {
+                input: document.getElementById("salary"),
+                results: document.getElementById("results"),
+                placeholder: document.getElementById("result-placeholder"),
+                netSalary: document.getElementById("net-salary"),
+                taxValue: document.getElementById("tax-value"),
+                insuranceValue: document.getElementById("insurance-value"),
+                yearSelector: document.getElementById("year-selector"),
+                headerYear: document.getElementById("header-year"),
+                tableSummary: document.getElementById("tax-table-summary"),
+                tableBody: document.getElementById("tax-table-body"),
+            };
+
+            function getActiveBrackets() {
+                return TAX_BRACKETS_BY_YEAR[selectedYear];
+            }
+
+            function showPlaceholder() {
+                els.results.style.display = "none";
+                els.placeholder.style.display = "block";
+            }
+
+            function showResults({ net, tax, insurance }) {
+                els.netSalary.textContent = formatWithUnit(net);
+                els.taxValue.textContent = formatWithUnit(tax);
+                els.insuranceValue.textContent = formatWithUnit(insurance);
+                els.placeholder.style.display = "none";
+                els.results.style.display = "grid";
+            }
+
+            function recalculate() {
+                const digits = sanitizeNumericInput(els.input.value);
+                const salary = Number(digits);
+
+                if (!salary) {
+                    showPlaceholder();
+                    return;
+                }
+
+                showResults(calculateBreakdown(salary, getActiveBrackets()));
+            }
+
+            function switchYear(year) {
+                selectedYear = year;
+                const persianYear = toPersianDigits(year);
+
+                els.headerYear.textContent = `سال ${persianYear}`;
+                els.tableSummary.textContent = `جدول پلکانی مالیات ${persianYear}`;
+
+                els.yearSelector.querySelectorAll("button").forEach((btn) => {
+                    btn.classList.toggle("active", Number(btn.dataset.year) === year);
+                });
+
+                renderTaxTable(getActiveBrackets(), els.tableBody);
+                recalculate();
+            }
+
+            els.yearSelector.addEventListener("click", (e) => {
+                const btn = e.target.closest("button[data-year]");
+                if (!btn) return;
+                switchYear(Number(btn.dataset.year));
+            });
+
+            els.input.addEventListener("input", (e) => {
+                const digits = sanitizeNumericInput(e.target.value);
+                e.target.value = digits ? formatCurrency(digits) : "";
+                recalculate();
+            });
+
+            switchYear(selectedYear);
+        }
+
+        document.addEventListener("DOMContentLoaded", initCalculator);
+    </script>
+</body>
+
+</html>
