@@ -56,7 +56,6 @@
     <div class="header-shell page">
       <header class="site-header">
         <div class="site-header__inner">
-          <a class="site-header__brand" href="#hero">Aref Azizian</a>
           <button
             type="button"
             class="nav-toggle"
@@ -76,12 +75,9 @@
               <li><a href="#publications" data-section="publications">Publications</a></li>
               <li><a href="#projects" data-section="projects">Projects</a></li>
               <li><a href="#references" data-section="references">References</a></li>
-              <li><a href="#contact" data-section="contact">Contact</a></li>
             </ul>
-            <div class="site-nav__cta">
-              <a class="btn-nav btn-nav--primary" href="mailto:storm.aref@gmail.com">Email</a>
-            </div>
           </nav>
+          <a class="btn-nav btn-nav--primary site-header__email" href="mailto:storm.aref@gmail.com">Email</a>
         </div>
       </header>
     </div>
@@ -319,7 +315,7 @@
 
       <section id="publications" class="section section--muted">
         <div class="page">
-        <div class="section__inner section__inner--narrow">
+        <div class="section__inner section__inner--centered">
           <header class="section-header">
             <span class="eyebrow">Research</span>
             <h2 class="section-title">Publications</h2>
@@ -450,78 +446,89 @@
         </div>
       </section>
 
-      <section id="references" class="section section--muted section--references-scroll">
-        <div class="references-scroll-zone" data-references-scroll-zone>
-        <div class="page references-scroll-pin">
-        <div class="section__inner">
-          <header class="section-header">
-            <span class="eyebrow">Testimonials</span>
-            <h2 class="section-title">References</h2>
-          </header>
-          <div class="references-carousel" data-references-carousel>
-            <div
-              class="references-carousel__viewport"
-              tabindex="0"
-              role="region"
-              aria-roledescription="carousel"
-              aria-label="References"
-            >
-              <div class="references-carousel__track">
-            <blockquote class="reference is-active" id="reference-1">
-              <p>
-                I'm pleased to recommend Aref, whom I managed directly.
-                Although he came with 7 years of .NET experience, he ramped up
-                on Golang extremely fast and quickly became a key contributor.
-                During our six months working together on a procurement
-                project, he consistently delivered clean, high-quality backend
-                code and showed a strong ability to understand our business
-                domain. Aref is reliable, fast-learning, and a great teammate.
-                He would be an asset to any engineering team.
-              </p>
-              <footer>
-                <p class="reference__author">Ali Janalizadeh</p>
-                <p class="reference__role">Team Lead @ System Group</p>
-              </footer>
-            </blockquote>
-            <blockquote class="reference" id="reference-2">
-              <p>
-                It is with great pleasure that I recommend Aref for any
-                professional endeavor. I had the privilege of working with
-                Aref and was continually impressed with his knowledge,
-                expertise, dedication to excellence, and attention to detail.
-                Aref has an incredible depth of knowledge in development, and
-                he always demonstrated a thorough understanding of the
-                industry and the latest trends and developments. He was able
-                to provide invaluable insights and recommendations that helped
-                our team achieve our goals and exceed our client's
-                expectations. In addition to his impressive expertise, Aref is
-                an absolute pleasure to work with. He is a great communicator,
-                always willing to listen and collaborate with others to
-                achieve the best outcomes. His positive attitude and
-                willingness to go above and beyond make him an asset to any
-                team. Overall, I cannot recommend Aref highly enough. He is an
-                exceptional professional and an absolute pleasure to work
-                with. Any organization or project would be lucky to have him
-                on board.
-              </p>
-              <footer>
-                <p class="reference__author">Ali Shajari</p>
-                <p class="reference__role">Research Assistant @ Carleton University</p>
-              </footer>
-            </blockquote>
+      <section id="references" class="section section--muted">
+        <div class="page">
+          <div class="section__inner">
+            <header class="section-header">
+              <span class="eyebrow">Testimonials</span>
+              <h2 class="section-title">References</h2>
+            </header>
+            <div class="references-carousel" data-references-carousel>
+              <button
+                type="button"
+                class="references-carousel__btn references-carousel__btn--prev"
+                data-ref-prev
+                aria-label="Previous reference"
+                disabled
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M15 18l-6-6 6-6" />
+                </svg>
+              </button>
+              <div
+                class="references-carousel__viewport"
+                tabindex="0"
+                role="region"
+                aria-roledescription="carousel"
+                aria-label="References"
+              >
+                <div class="references-carousel__track">
+                  <blockquote class="reference" id="reference-1">
+                    <p>
+                      I'm pleased to recommend Aref, whom I managed directly.
+                      Although he came with 7 years of .NET experience, he ramped up
+                      on Golang extremely fast and quickly became a key contributor.
+                      During our six months working together on a procurement
+                      project, he consistently delivered clean, high-quality backend
+                      code and showed a strong ability to understand our business
+                      domain. Aref is reliable, fast-learning, and a great teammate.
+                      He would be an asset to any engineering team.
+                    </p>
+                    <footer>
+                      <p class="reference__author">Ali Janalizadeh</p>
+                      <p class="reference__role">Team Lead @ System Group</p>
+                    </footer>
+                  </blockquote>
+                  <blockquote class="reference" id="reference-2">
+                    <p>
+                      It is with great pleasure that I recommend Aref for any
+                      professional endeavor. I had the privilege of working with
+                      Aref and was continually impressed with his knowledge,
+                      expertise, dedication to excellence, and attention to detail.
+                      Aref has an incredible depth of knowledge in development, and
+                      he always demonstrated a thorough understanding of the
+                      industry and the latest trends and developments. He was able
+                      to provide invaluable insights and recommendations that helped
+                      our team achieve our goals and exceed our client's
+                      expectations. In addition to his impressive expertise, Aref is
+                      an absolute pleasure to work with. He is a great communicator,
+                      always willing to listen and collaborate with others to
+                      achieve the best outcomes. His positive attitude and
+                      willingness to go above and beyond make him an asset to any
+                      team. Overall, I cannot recommend Aref highly enough. He is an
+                      exceptional professional and an absolute pleasure to work
+                      with. Any organization or project would be lucky to have him
+                      on board.
+                    </p>
+                    <footer>
+                      <p class="reference__author">Ali Shajari</p>
+                      <p class="reference__role">Research Assistant @ Carleton University</p>
+                    </footer>
+                  </blockquote>
+                </div>
               </div>
-            </div>
-            <div class="references-carousel__footer">
-              <p class="references-carousel__hint" aria-hidden="true">
-                <span class="references-carousel__hint-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <path d="M12 5v14M5 12l7 7 7-7" />
-                  </svg>
-                </span>
-                Keep scrolling to reveal the next reference
-              </p>
-              <div class="references-carousel__meta">
-                <div class="references-carousel__dots" data-ref-dots aria-hidden="true"></div>
+              <button
+                type="button"
+                class="references-carousel__btn references-carousel__btn--next"
+                data-ref-next
+                aria-label="Next reference"
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M9 18l6-6-6-6" />
+                </svg>
+              </button>
+              <div class="references-carousel__controls">
+                <div class="references-carousel__dots" data-ref-dots role="tablist" aria-label="Reference slides"></div>
                 <p class="references-carousel__progress" aria-live="polite">
                   <span data-ref-current>1</span> of <span data-ref-total>2</span>
                 </p>
@@ -529,27 +536,8 @@
             </div>
           </div>
         </div>
-        </div>
-        </div>
       </section>
 
-      <section id="contact" class="section">
-        <div class="page">
-        <div class="section__inner section__inner--narrow">
-          <div class="contact-panel">
-            <span class="eyebrow">Contact</span>
-            <h2 class="section-title">Get in touch</h2>
-            <p class="section-desc">
-              If you're interested in working with me — or just want to treat me to a cup of coffee.
-            </p>
-            <div class="contact-panel__actions">
-              <button type="button" class="btn btn--primary" data-open-contact>Let's talk</button>
-              <a class="btn btn--secondary" href="mailto:storm.aref@gmail.com">Email me</a>
-            </div>
-          </div>
-        </div>
-        </div>
-      </section>
     </main>
 
     <footer class="site-footer page">
