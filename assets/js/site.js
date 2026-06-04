@@ -177,17 +177,25 @@
 
   var referencesCarousel = document.querySelector("[data-references-carousel]");
   if (referencesCarousel) {
+    var referencesSection = document.getElementById("references");
+    var scrollZone = referencesSection
+      ? referencesSection.querySelector("[data-references-scroll-zone]")
+      : null;
     var carouselViewport = referencesCarousel.querySelector(
       ".references-carousel__viewport"
     );
     var carouselTrack = referencesCarousel.querySelector(
       ".references-carousel__track"
     );
-    var carouselDots = referencesCarousel.querySelector(
-      ".references-carousel__dots"
+    var scrollHint = referencesCarousel.querySelector(
+      ".references-carousel__hint"
     );
+    var refCurrent = referencesCarousel.querySelector("[data-ref-current]");
+    var refTotal = referencesCarousel.querySelector("[data-ref-total]");
+    var refDots = referencesCarousel.querySelector("[data-ref-dots]");
     var slides = referencesCarousel.querySelectorAll(".reference");
-    var FLIP_DURATION = 280;
+    var STACK_DURATION = 360;
+    var STACK_PEEK = 28;
 
     if (reducedMotion) {
       referencesCarousel.classList.add("references-carousel--reduced");
@@ -201,156 +209,230 @@
         slide.classList.remove("reference--measure");
       });
       if (maxHeight > 0 && carouselViewport && carouselTrack) {
-        carouselViewport.style.minHeight = maxHeight + "px";
-        carouselTrack.style.minHeight = maxHeight + "px";
+        var stackHeight = maxHeight + STACK_PEEK;
+        carouselViewport.style.minHeight = stackHeight + "px";
+        carouselTrack.style.minHeight = stackHeight + "px";
       }
     }
 
+    function buildDots() {
+      if (!refDots) return;
+      refDots.innerHTML = "";
+      slides.forEach(function (_, index) {
+        var dot = document.createElement("span");
+        dot.className = "references-carousel__dot";
+        dot.setAttribute("aria-hidden", "true");
+        if (index === 0) dot.classList.add("is-active");
+        refDots.appendChild(dot);
+      });
+    }
+
+    buildDots();
+
+    if (refTotal) refTotal.textContent = String(slides.length);
+
     measureSlideHeights();
 
+    slides.forEach(function (slide, index) {
+      if (!slide.id) slide.id = "reference-" + (index + 1);
+    });
+
     if (slides.length <= 1) {
-      if (carouselDots) carouselDots.hidden = true;
-    } else {
-      var currentIndex = 0;
-      var isAnimating = false;
-      var dotButtons = [];
+      if (scrollHint) scrollHint.hidden = true;
+      return;
+    }
 
-      slides.forEach(function (slide, index) {
-        if (!slide.id) slide.id = "reference-" + (index + 1);
-      });
+    var currentIndex = 0;
+    var isAnimating = false;
+    var scrollStep = 0;
 
-      function updateDots(index) {
-        dotButtons.forEach(function (btn, i) {
-          var selected = i === index;
-          btn.classList.toggle("is-active", selected);
-          btn.setAttribute("aria-selected", selected ? "true" : "false");
-          btn.tabIndex = selected ? 0 : -1;
+    function updateAria(index) {
+      if (!carouselViewport) return;
+      var slide = slides[index];
+      var author = slide.querySelector(".reference__author");
+      var label = author
+        ? author.textContent.trim()
+        : "Reference " + (index + 1);
+      carouselViewport.setAttribute(
+        "aria-label",
+        "References, " + label + ", " + (index + 1) + " of " + slides.length
+      );
+    }
+
+    function updateHint(index) {
+      if (!scrollHint) return;
+      if (index >= slides.length - 1) {
+        scrollHint.classList.add("is-hidden");
+      } else {
+        scrollHint.classList.remove("is-hidden");
+      }
+    }
+
+    function updateProgress(index) {
+      if (refCurrent) refCurrent.textContent = String(index + 1);
+      if (refDots) {
+        refDots.querySelectorAll(".references-carousel__dot").forEach(function (dot, i) {
+          dot.classList.toggle("is-active", i === index);
         });
-        if (carouselViewport) {
-          var slide = slides[index];
-          var author = slide.querySelector(".reference__author");
-          var label = author
-            ? author.textContent.trim()
-            : "Reference " + (index + 1);
-          carouselViewport.setAttribute(
-            "aria-label",
-            "References, " + label + ", " + (index + 1) + " of " + slides.length
-          );
+      }
+    }
+
+    function applyStackLayout(index) {
+      slides.forEach(function (slide, i) {
+        slide.classList.remove(
+          "is-active",
+          "is-stacked",
+          "is-past",
+          "is-peeling",
+          "is-promoting",
+          "is-returning"
+        );
+        slide.removeAttribute("data-stack");
+
+        var diff = i - index;
+        if (diff === 0) {
+          slide.classList.add("is-active");
+        } else if (diff > 0 && diff <= 2) {
+          slide.classList.add("is-stacked");
+          slide.setAttribute("data-stack", String(diff));
+        } else if (diff < 0) {
+          slide.classList.add("is-past");
         }
+      });
+    }
+
+    function finishTransition(index) {
+      applyStackLayout(index);
+      currentIndex = index;
+      isAnimating = false;
+      updateAria(index);
+      updateHint(index);
+      updateProgress(index);
+    }
+
+    function goTo(index) {
+      if (index < 0 || index >= slides.length || index === currentIndex) {
+        return;
+      }
+      if (isAnimating) return;
+
+      var current = slides[currentIndex];
+      var target = slides[index];
+      var direction = index > currentIndex ? 1 : -1;
+
+      if (reducedMotion) {
+        finishTransition(index);
+        return;
       }
 
-      function finishTransition(index) {
+      isAnimating = true;
+
+      if (direction > 0) {
+        current.classList.remove("is-active", "is-stacked");
+        current.removeAttribute("data-stack");
+        current.classList.add("is-peeling");
+
+        target.classList.remove("is-stacked", "is-past");
+        target.removeAttribute("data-stack");
+        target.classList.add("is-promoting");
+
         slides.forEach(function (slide, i) {
+          if (i === currentIndex || i === index) return;
           slide.classList.remove(
             "is-active",
-            "is-exiting",
-            "is-entering",
-            "is-exiting-next",
-            "is-exiting-prev",
-            "is-entering-next",
-            "is-entering-prev"
+            "is-stacked",
+            "is-past",
+            "is-peeling",
+            "is-promoting",
+            "is-returning"
           );
-          if (i === index) slide.classList.add("is-active");
+          slide.removeAttribute("data-stack");
+          var diff = i - index;
+          if (diff > 0 && diff <= 2) {
+            slide.classList.add("is-stacked");
+            slide.setAttribute("data-stack", String(diff));
+          } else if (diff < 0) {
+            slide.classList.add("is-past");
+          }
         });
-        currentIndex = index;
-        isAnimating = false;
-        updateDots(index);
-      }
-
-      function goTo(index) {
-        if (index < 0 || index >= slides.length || index === currentIndex) {
-          return;
-        }
-        if (isAnimating) return;
-
-        var current = slides[currentIndex];
-        var target = slides[index];
-        var direction = index > currentIndex ? 1 : -1;
-
-        if (reducedMotion) {
-          finishTransition(index);
-          return;
-        }
-
-        isAnimating = true;
-        current.classList.remove("is-active");
-        current.classList.add(
-          "is-exiting",
-          direction > 0 ? "is-exiting-next" : "is-exiting-prev"
-        );
-        target.classList.add(
-          "is-entering",
-          direction > 0 ? "is-entering-next" : "is-entering-prev"
-        );
 
         requestAnimationFrame(function () {
           target.classList.add("is-active");
         });
+      } else {
+        current.classList.remove("is-active");
+        current.classList.add("is-stacked");
+        current.setAttribute("data-stack", "1");
 
-        window.setTimeout(function () {
-          finishTransition(index);
-        }, FLIP_DURATION);
+        target.classList.remove("is-past");
+        target.classList.add("is-returning");
+
+        requestAnimationFrame(function () {
+          target.classList.add("is-active");
+        });
       }
 
-      slides.forEach(function (slide, index) {
-        var btn = document.createElement("button");
-        btn.type = "button";
-        btn.className = "references-carousel__dot";
-        btn.setAttribute("role", "tab");
-        btn.setAttribute("aria-controls", slide.id);
-        var author = slide.querySelector(".reference__author");
-        btn.setAttribute(
-          "aria-label",
-          author
-            ? author.textContent.trim()
-            : "Reference " + (index + 1)
-        );
-        btn.addEventListener("click", function () {
-          goTo(index);
-        });
-        carouselDots.appendChild(btn);
-        dotButtons.push(btn);
+      window.setTimeout(function () {
+        finishTransition(index);
+      }, STACK_DURATION);
+    }
+
+    function setScrollZoneHeight() {
+      if (!scrollZone) return;
+      scrollStep = Math.max(window.innerHeight * 0.65, 420);
+      scrollZone.style.height =
+        scrollStep * (slides.length - 1) +
+        Math.max(window.innerHeight, scrollStep) +
+        "px";
+    }
+
+    function indexFromScroll() {
+      if (!scrollZone) return 0;
+      var zoneTop =
+        scrollZone.getBoundingClientRect().top + window.pageYOffset;
+      var maxScroll = scrollZone.offsetHeight - window.innerHeight;
+      if (maxScroll <= 0) return 0;
+      var progress = (window.pageYOffset - zoneTop) / maxScroll;
+      progress = Math.max(0, Math.min(1, progress));
+      return Math.round(progress * (slides.length - 1));
+    }
+
+    function onReferencesScroll() {
+      var nextIndex = indexFromScroll();
+      if (nextIndex !== currentIndex) goTo(nextIndex);
+    }
+
+    setScrollZoneHeight();
+    applyStackLayout(0);
+    updateAria(0);
+    updateHint(0);
+    updateProgress(0);
+    onReferencesScroll();
+
+    window.addEventListener("scroll", onReferencesScroll, { passive: true });
+    window.addEventListener("resize", function () {
+      measureSlideHeights();
+      setScrollZoneHeight();
+      onReferencesScroll();
+    });
+
+    if (carouselViewport) {
+      carouselViewport.addEventListener("keydown", function (e) {
+        if (
+          e.key !== "ArrowDown" &&
+          e.key !== "ArrowUp" &&
+          e.key !== "ArrowLeft" &&
+          e.key !== "ArrowRight"
+        ) {
+          return;
+        }
+        e.preventDefault();
+        if (e.key === "ArrowDown" || e.key === "ArrowRight") {
+          goTo(currentIndex + 1);
+        } else {
+          goTo(currentIndex - 1);
+        }
       });
-
-      updateDots(0);
-
-      if (carouselViewport) {
-        carouselViewport.addEventListener("keydown", function (e) {
-          if (
-            e.key !== "ArrowDown" &&
-            e.key !== "ArrowUp" &&
-            e.key !== "ArrowLeft" &&
-            e.key !== "ArrowRight"
-          ) {
-            return;
-          }
-          e.preventDefault();
-          if (e.key === "ArrowDown" || e.key === "ArrowRight") {
-            goTo(currentIndex + 1);
-          } else {
-            goTo(currentIndex - 1);
-          }
-        });
-
-        var touchStartY = 0;
-        carouselViewport.addEventListener(
-          "touchstart",
-          function (e) {
-            touchStartY = e.touches[0].clientY;
-          },
-          { passive: true }
-        );
-        carouselViewport.addEventListener(
-          "touchend",
-          function (e) {
-            var dy = e.changedTouches[0].clientY - touchStartY;
-            if (Math.abs(dy) < 40) return;
-            if (dy < 0) goTo(currentIndex + 1);
-            else goTo(currentIndex - 1);
-          },
-          { passive: true }
-        );
-      }
     }
   }
 

@@ -41,9 +41,10 @@
       href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=JetBrains+Mono:wght@400&family=Space+Grotesk:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="icon" href="/favicon.ico" sizes="any" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png" />
+    <link rel="icon" href="/assets/icons/favicon.ico" sizes="any" />
     <link rel="manifest" href="/manifest.json" />
     <meta name="msapplication-TileColor" content="#fafafa" />
     <meta name="theme-color" content="#fafafa" />
@@ -296,6 +297,11 @@
                   Thesis:
                   <em>Label Noise Detection and Correction via Ensemble of Siamese Networks</em>
                 </p>
+                <p>
+                  Master's research at
+                  <a href="https://norc.aut.ac.ir" target="_blank" rel="noopener noreferrer">NORC</a>
+                  (Novelties, Optimization &amp; Redesigning of Cities) — a smart-city research center at Amirkabir University of Technology focused on AI, neural networks, and optimization.
+                </p>
                 <p class="timeline__role">Amirkabir University</p>
               </article>
             </li>
@@ -444,9 +450,10 @@
         </div>
       </section>
 
-      <section id="references" class="section section--muted">
-        <div class="page">
-        <div class="section__inner section__inner--narrow">
+      <section id="references" class="section section--muted section--references-scroll">
+        <div class="references-scroll-zone" data-references-scroll-zone>
+        <div class="page references-scroll-pin">
+        <div class="section__inner">
           <header class="section-header">
             <span class="eyebrow">Testimonials</span>
             <h2 class="section-title">References</h2>
@@ -504,12 +511,24 @@
             </blockquote>
               </div>
             </div>
-            <div
-              class="references-carousel__dots"
-              role="tablist"
-              aria-label="Choose reference"
-            ></div>
+            <div class="references-carousel__footer">
+              <p class="references-carousel__hint" aria-hidden="true">
+                <span class="references-carousel__hint-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M12 5v14M5 12l7 7 7-7" />
+                  </svg>
+                </span>
+                Keep scrolling to reveal the next reference
+              </p>
+              <div class="references-carousel__meta">
+                <div class="references-carousel__dots" data-ref-dots aria-hidden="true"></div>
+                <p class="references-carousel__progress" aria-live="polite">
+                  <span data-ref-current>1</span> of <span data-ref-total>2</span>
+                </p>
+              </div>
+            </div>
           </div>
+        </div>
         </div>
         </div>
       </section>
