@@ -50,9 +50,9 @@
     }
     </script>
 
-    <link href="/favicon.png" rel="shortcut icon" type="image/x-icon">
-    <link rel="icon" type="image/png" href="/favicon.png">
-    <link rel="apple-touch-icon" href="/favicon.png">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
     <style>
@@ -295,7 +295,7 @@
         .year-selector button {
             flex: 1;
             padding: 10px 0;
-            font-family: Samim, Tahoma, sans-serif;
+            font-family: Vazirmatn, Tahoma, sans-serif;
             font-size: 0.95rem;
             font-weight: 600;
             border: none;
@@ -403,7 +403,7 @@
             توجه: این ابزار صرفاً مالیات و سهم بیمه کارمند (۷٪) را محاسبه می‌کند؛ سایر کسورات لحاظ نشده است.
         </p>
 
-        <details id="tax-table-details">
+        <details>
             <summary id="tax-table-summary">جدول پلکانی مالیات ۱۴۰۵</summary>
             <table class="tax-table">
                 <thead>
@@ -486,7 +486,6 @@
             const tax = calculateTax(grossSalary, brackets);
             const insurance = calculateInsurance(grossSalary);
             return {
-                gross: grossSalary,
                 tax,
                 insurance,
                 net: grossSalary - tax - insurance,
@@ -598,7 +597,7 @@
             switchYear(selectedYear);
         }
 
-        document.addEventListener("DOMContentLoaded", initCalculator);
+        initCalculator();
     </script>
 </body>
 
