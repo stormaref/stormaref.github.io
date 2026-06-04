@@ -22,6 +22,8 @@
   }
 
   if (navToggle && siteNav) {
+    var mobileNav = window.matchMedia("(max-width: 960px)");
+
     navToggle.addEventListener("click", function () {
       setNavOpen(!siteNav.classList.contains("is-open"));
     });
@@ -29,6 +31,11 @@
       link.addEventListener("click", function () {
         setNavOpen(false);
       });
+    });
+    document.addEventListener("pointerdown", function (e) {
+      if (!mobileNav.matches || !siteNav.classList.contains("is-open")) return;
+      if (siteNav.contains(e.target) || navToggle.contains(e.target)) return;
+      setNavOpen(false);
     });
   }
 
