@@ -1,6 +1,35 @@
 (function () {
   "use strict";
 
+  // Theme toggle
+  var themeToggle = document.getElementById("theme-toggle");
+  var isDark = localStorage.getItem("theme") === "dark";
+
+  var themeColorMeta = document.querySelector('meta[name="theme-color"]');
+
+  function applyTheme(dark) {
+    document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
+    if (themeColorMeta) {
+      themeColorMeta.setAttribute("content", dark ? "#09090b" : "#fafafa");
+    }
+    if (themeToggle) {
+      themeToggle.setAttribute(
+        "aria-label",
+        dark ? "Switch to light mode" : "Switch to dark mode"
+      );
+    }
+  }
+
+  applyTheme(isDark);
+
+  if (themeToggle) {
+    themeToggle.addEventListener("click", function () {
+      isDark = !isDark;
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+      applyTheme(isDark);
+    });
+  }
+
   var reducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
   ).matches;
