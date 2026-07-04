@@ -100,11 +100,19 @@
           <div class="section__inner">
             <header class="section-header">
               <span class="eyebrow">Reading list</span>
-              <h1 class="section-title">Favourite Papers</h1>
+              <h1 class="section-title">Papers I Read</h1>
               <p class="section-desc">Research I keep coming back to.</p>
             </header>
-            <ul class="project-grid">
-              <li>
+            <div class="tag-filter" data-tag-filter role="group" aria-label="Filter papers by tag">
+              <button type="button" class="tag-filter__btn is-active" data-tag="all" aria-pressed="true">All</button>
+              <button type="button" class="tag-filter__btn" data-tag="label-smoothing" aria-pressed="false">#LabelSmoothing</button>
+              <button type="button" class="tag-filter__btn" data-tag="regularisation" aria-pressed="false">#Regularisation</button>
+              <button type="button" class="tag-filter__btn" data-tag="noisy-labels" aria-pressed="false">#NoisyLabels</button>
+              <button type="button" class="tag-filter__btn" data-tag="lipschitz-continuity" aria-pressed="false">#LipschitzContinuity</button>
+              <button type="button" class="tag-filter__btn" data-tag="classification-margins" aria-pressed="false">#ClassificationMargins</button>
+            </div>
+            <ul class="project-grid" data-tag-filter-list>
+              <li data-tags="label-smoothing">
                 <a class="project-card" href="https://arxiv.org/abs/2011.12562" target="_blank" rel="noopener noreferrer">
                   <div class="project-card__top">
                     <h2 class="project-card__title">Delving Deep into Label Smoothing</h2>
@@ -112,14 +120,15 @@
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
                     </span>
                   </div>
-                  <ul class="tag-list"><li>Label smoothing</li><li>IEEE TIP 2021</li></ul>
+                  <ul class="tag-list"><li>#LabelSmoothing</li></ul>
+                  <p class="project-card__venue">IEEE TIP 2021</p>
                   <p class="project-card__desc">
                     Chang-Bin Zhang, Peng-Tao Jiang, Qibin Hou, Yunchao Wei,
                     Qi Han, Zhen Li, Ming-Ming Cheng
                   </p>
                 </a>
               </li>
-              <li>
+              <li data-tags="regularisation">
                 <a class="project-card" href="https://jmlr.org/papers/v15/srivastava14a.html" target="_blank" rel="noopener noreferrer">
                   <div class="project-card__top">
                     <h2 class="project-card__title">Dropout: A Simple Way to Prevent Neural Networks from Overfitting</h2>
@@ -127,14 +136,15 @@
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
                     </span>
                   </div>
-                  <ul class="tag-list"><li>Regularisation</li><li>JMLR 2014</li></ul>
+                  <ul class="tag-list"><li>#Regularisation</li></ul>
+                  <p class="project-card__venue">JMLR 2014</p>
                   <p class="project-card__desc">
                     Nitish Srivastava, Geoffrey Hinton, Alex Krizhevsky,
                     Ilya Sutskever, Ruslan Salakhutdinov
                   </p>
                 </a>
               </li>
-              <li>
+              <li data-tags="noisy-labels">
                 <a class="project-card" href="https://arxiv.org/abs/2006.07836" target="_blank" rel="noopener noreferrer">
                   <div class="project-card__top">
                     <h2 class="project-card__title">Part-dependent Label Noise: Towards Instance-dependent Label Noise</h2>
@@ -142,11 +152,42 @@
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
                     </span>
                   </div>
-                  <ul class="tag-list"><li>Noisy labels</li><li>NeurIPS 2020</li></ul>
+                  <ul class="tag-list"><li>#NoisyLabels</li></ul>
+                  <p class="project-card__venue">NeurIPS 2020</p>
                   <p class="project-card__desc">
                     Xiaobo Xia, Tongliang Liu, Bo Han, Nannan Wang,
                     Mingming Gong, Haifeng Liu, Gang Niu, Dacheng Tao,
                     Masashi Sugiyama
+                  </p>
+                </a>
+              </li>
+              <li data-tags="lipschitz-continuity">
+                <a class="project-card" href="https://arxiv.org/abs/2302.10886" target="_blank" rel="noopener noreferrer">
+                  <div class="project-card__top">
+                    <h2 class="project-card__title">Some Fundamental Aspects about Lipschitz Continuity of Neural Networks</h2>
+                    <span class="project-card__icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+                    </span>
+                  </div>
+                  <ul class="tag-list"><li>#LipschitzContinuity</li></ul>
+                  <p class="project-card__venue">arXiv 2023</p>
+                  <p class="project-card__desc">
+                    Grigory Khromov, Sidak Pal Singh
+                  </p>
+                </a>
+              </li>
+              <li data-tags="noisy-labels classification-margins">
+                <a class="project-card" href="https://arxiv.org/abs/2102.00751" target="_blank" rel="noopener noreferrer">
+                  <div class="project-card__top">
+                    <h2 class="project-card__title">Learning to Combat Noisy Labels via Classification Margins</h2>
+                    <span class="project-card__icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+                    </span>
+                  </div>
+                  <ul class="tag-list"><li>#NoisyLabels</li><li>#ClassificationMargins</li></ul>
+                  <p class="project-card__venue">arXiv 2021</p>
+                  <p class="project-card__desc">
+                    Jason Z. Lin, Jelena Bradic
                   </p>
                 </a>
               </li>

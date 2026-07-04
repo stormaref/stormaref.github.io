@@ -170,6 +170,30 @@
     }
   }
 
+  var tagFilter = document.querySelector("[data-tag-filter]");
+  var tagFilterList = document.querySelector("[data-tag-filter-list]");
+  if (tagFilter && tagFilterList) {
+    var tagButtons = tagFilter.querySelectorAll("[data-tag]");
+    var tagItems = tagFilterList.querySelectorAll("li[data-tags]");
+
+    tagButtons.forEach(function (button) {
+      button.addEventListener("click", function () {
+        var tag = button.getAttribute("data-tag");
+
+        tagButtons.forEach(function (b) {
+          var active = b === button;
+          b.classList.toggle("is-active", active);
+          b.setAttribute("aria-pressed", active ? "true" : "false");
+        });
+
+        tagItems.forEach(function (item) {
+          var tags = (item.getAttribute("data-tags") || "").split(" ");
+          item.hidden = tag !== "all" && tags.indexOf(tag) === -1;
+        });
+      });
+    });
+  }
+
   var dialog = document.getElementById("contact-dialog");
   if (dialog) {
     document.querySelectorAll("[data-open-contact]").forEach(function (el) {
