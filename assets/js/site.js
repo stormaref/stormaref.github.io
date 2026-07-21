@@ -51,7 +51,7 @@
   }
 
   if (navToggle && siteNav) {
-    var mobileNav = window.matchMedia("(max-width: 960px)");
+    var mobileNav = window.matchMedia("(max-width: 1100px)");
 
     navToggle.addEventListener("click", function () {
       setNavOpen(!siteNav.classList.contains("is-open"));
