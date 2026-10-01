@@ -3,7 +3,8 @@
 
   // Theme toggle
   var themeToggle = document.getElementById("theme-toggle");
-  var isDark = localStorage.getItem("theme") === "dark";
+  // The inline head script already resolved the theme (saved choice, else the OS preference).
+  var isDark = document.documentElement.getAttribute("data-theme") === "dark";
 
   var themeColorMeta = document.querySelector('meta[name="theme-color"]');
 
@@ -25,7 +26,9 @@
   if (themeToggle) {
     themeToggle.addEventListener("click", function () {
       isDark = !isDark;
-      localStorage.setItem("theme", isDark ? "dark" : "light");
+      try {
+        localStorage.setItem("theme", isDark ? "dark" : "light");
+      } catch (e) {}
       applyTheme(isDark);
     });
   }
@@ -51,7 +54,7 @@
   }
 
   if (navToggle && siteNav) {
-    var mobileNav = window.matchMedia("(max-width: 1100px)");
+    var mobileNav = window.matchMedia("(max-width: 768px)");
 
     navToggle.addEventListener("click", function () {
       setNavOpen(!siteNav.classList.contains("is-open"));
@@ -88,11 +91,28 @@
         behavior: reducedMotion ? "auto" : "smooth",
         block: "start",
       });
+      // Move keyboard focus with the scroll so the next Tab continues from the target.
+      if (!target.hasAttribute("tabindex")) {
+        target.setAttribute("tabindex", "-1");
+      }
+      target.focus({ preventScroll: true });
       history.replaceState(null, "", id);
     });
   });
 
-  var navLinks = document.querySelectorAll(".site-nav__links a[data-section]");
+  var navLinks = document.querySelectorAll(".subnav a[data-section]");
+  var subnavList = document.querySelector(".subnav__links");
+
+  // Keep the active pill visible when the sub-nav scrolls horizontally (phones).
+  function revealInSubnav(link) {
+    if (!subnavList || subnavList.scrollWidth <= subnavList.clientWidth) return;
+    var target =
+      link.offsetLeft - (subnavList.clientWidth - link.offsetWidth) / 2;
+    subnavList.scrollTo({
+      left: target,
+      behavior: reducedMotion ? "auto" : "smooth",
+    });
+  }
   if (navLinks.length && "IntersectionObserver" in window) {
     var tracked = [];
     navLinks.forEach(function (link) {
@@ -132,10 +152,16 @@
           }
 
           navLinks.forEach(function (link) {
-            link.classList.toggle(
-              "is-active",
-              activeId === link.getAttribute("data-section")
-            );
+            var isActive = activeId === link.getAttribute("data-section");
+            if (isActive && !link.classList.contains("is-active")) {
+              revealInSubnav(link);
+            }
+            link.classList.toggle("is-active", isActive);
+            if (isActive) {
+              link.setAttribute("aria-current", "location");
+            } else {
+              link.removeAttribute("aria-current");
+            }
           });
         },
         { rootMargin: "-35% 0px -45% 0px", threshold: [0, 0.1, 0.25, 0.5] }
@@ -175,6 +201,7 @@
   if (tagFilter && tagFilterList) {
     var tagButtons = tagFilter.querySelectorAll("[data-tag]");
     var tagItems = tagFilterList.querySelectorAll("li[data-tags]");
+    var tagCount = document.querySelector("[data-tag-filter-count]");
 
     tagButtons.forEach(function (button) {
       button.addEventListener("click", function () {
@@ -186,10 +213,21 @@
           b.setAttribute("aria-pressed", active ? "true" : "false");
         });
 
+        var shown = 0;
         tagItems.forEach(function (item) {
           var tags = (item.getAttribute("data-tags") || "").split(" ");
           item.hidden = tag !== "all" && tags.indexOf(tag) === -1;
+          if (!item.hidden) shown++;
         });
+
+        if (tagCount) {
+          var total = tagItems.length;
+          tagCount.textContent =
+            tag === "all"
+              ? "Showing all " + total + " papers"
+              : "Showing " + shown + " of " + total + " papers \u00b7 " +
+                button.textContent;
+        }
       });
     });
   }
@@ -213,14 +251,32 @@
   }
 
   var successOverlay = document.getElementById("success-overlay");
+  var hideSuccess = null;
   if (successOverlay) {
-    function hideSuccess() {
+    // Everything except the overlay is made inert while it is open, so it behaves as a modal.
+    var successBackground = Array.prototype.filter.call(
+      document.body.children,
+      function (el) {
+        return el !== successOverlay && el.tagName !== "SCRIPT";
+      }
+    );
+
+    hideSuccess = function () {
+      if (successOverlay.hidden) return;
       successOverlay.hidden = true;
       document.body.style.overflow = "";
+      successBackground.forEach(function (el) {
+        el.inert = false;
+      });
       var url = new URL(window.location.href);
       url.searchParams.delete("success");
       history.replaceState(null, "", url.pathname + url.hash);
-    }
+      var main = document.getElementById("main");
+      if (main) {
+        if (!main.hasAttribute("tabindex")) main.setAttribute("tabindex", "-1");
+        main.focus({ preventScroll: true });
+      }
+    };
 
     document.querySelectorAll("[data-hide-success]").forEach(function (btn) {
       btn.addEventListener("click", hideSuccess);
@@ -232,6 +288,11 @@
     if (new URLSearchParams(window.location.search).has("success")) {
       successOverlay.hidden = false;
       document.body.style.overflow = "hidden";
+      successBackground.forEach(function (el) {
+        el.inert = true;
+      });
+      var successButton = successOverlay.querySelector("[data-hide-success]");
+      if (successButton) successButton.focus();
     }
   }
 
@@ -445,5 +506,6 @@
     if (e.key !== "Escape") return;
     if (siteNav && siteNav.classList.contains("is-open")) setNavOpen(false);
     if (dialog && dialog.open) dialog.close();
+    if (hideSuccess) hideSuccess();
   });
 })();

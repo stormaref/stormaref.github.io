@@ -71,7 +71,7 @@
     <meta name="msapplication-TileColor" content="#fafafa" />
     <meta name="theme-color" content="#fafafa" />
     <link rel="stylesheet" href="/assets/css/site.css" />
-    <script>!function(){var t=localStorage.getItem('theme')||'light';document.documentElement.setAttribute('data-theme',t)}();</script>
+    <script>!function(){var t;try{t=localStorage.getItem('theme')}catch(e){}if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t)}();</script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -93,9 +93,10 @@
               <path class="nav-toggle__line nav-toggle__line--bottom" d="M4 17h16" />
             </svg>
           </button>
+          <a class="site-header__brand" href="/">Aref Azizian</a>
           <nav class="site-nav" id="site-nav" aria-label="Primary">
             <ul class="site-nav__links">
-              <li><a href="/" class="is-active">Home</a></li>
+              <li><a href="/" class="is-active" aria-current="page">Home</a></li>
               <li><a href="/papers/">Papers</a></li>
               <li><a href="/books/">Books</a></li>
               <li><a href="/blog/">Blog</a></li>
@@ -142,10 +143,12 @@
             </div>
             <figure class="hero__photo">
               <img
-                src="/assets/me.jpeg"
+                src="/assets/me-288.jpg"
+                srcset="/assets/me-288.jpg 288w, /assets/me-576.jpg 576w"
+                sizes="(min-width: 900px) 18rem, 16rem"
                 alt="Portrait of Aref Azizian"
-                width="600"
-                height="600"
+                width="576"
+                height="576"
                 fetchpriority="high"
               />
             </figure>

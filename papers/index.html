@@ -55,7 +55,7 @@
     <meta name="msapplication-TileColor" content="#fafafa" />
     <meta name="theme-color" content="#fafafa" />
     <link rel="stylesheet" href="/assets/css/site.css" />
-    <script>!function(){var t=localStorage.getItem('theme')||'light';document.documentElement.setAttribute('data-theme',t)}();</script>
+    <script>!function(){var t;try{t=localStorage.getItem('theme')}catch(e){}if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t)}();</script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -77,10 +77,11 @@
               <path class="nav-toggle__line nav-toggle__line--bottom" d="M4 17h16" />
             </svg>
           </button>
+          <a class="site-header__brand" href="/">Aref Azizian</a>
           <nav class="site-nav" id="site-nav" aria-label="Primary">
             <ul class="site-nav__links">
               <li><a href="/">Home</a></li>
-              <li><a href="/papers/" class="is-active">Papers</a></li>
+              <li><a href="/papers/" class="is-active" aria-current="page">Papers</a></li>
               <li><a href="/books/">Books</a></li>
               <li><a href="/blog/">Blog</a></li>
               <li><a href="/about/">About</a></li>
@@ -116,6 +117,7 @@
               <button type="button" class="tag-filter__btn" data-tag="temporal-graphs" aria-pressed="false">#TemporalGraphs</button>
               <button type="button" class="tag-filter__btn" data-tag="survey" aria-pressed="false">#Survey</button>
             </div>
+            <p class="tag-filter__count" data-tag-filter-count aria-live="polite">Showing all 7 papers</p>
             <ul class="project-grid" data-tag-filter-list>
               <li data-tags="label-smoothing">
                 <a class="project-card" href="https://arxiv.org/abs/2011.12562" target="_blank" rel="noopener noreferrer">

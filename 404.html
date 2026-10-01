@@ -1,16 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-DNZLNJMC56"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-DNZLNJMC56");
+    </script>
     <meta charset="UTF-8" />
-    <title>404 · Page not found · Aref Azizian</title>
-    <meta name="description" content="Page not found" />
+    <title>Page not found &middot; Aref Azizian</title>
+    <meta
+      name="description"
+      content="The page you requested could not be found."
+    />
+    <meta name="robots" content="noindex" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="canonical" href="https://stormaref.github.io/404.html" />
+    <meta name="author" content="Aref Azizian" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://stormaref.github.io/404.html" />
-    <meta property="og:title" content="Page not found · Aref Azizian" />
+    <meta property="og:title" content="Page not found &middot; Aref Azizian" />
     <meta property="og:description" content="The page you requested could not be found." />
     <meta property="og:image" content="https://stormaref.github.io/assets/me.jpeg" />
     <meta property="og:image:width" content="2105" />
@@ -21,44 +38,83 @@
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Page not found · Aref Azizian" />
+    <meta name="twitter:title" content="Page not found &middot; Aref Azizian" />
     <meta name="twitter:description" content="The page you requested could not be found." />
     <meta name="twitter:image" content="https://stormaref.github.io/assets/me.jpeg" />
     <meta name="twitter:image:alt" content="Aref Azizian" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Space+Grotesk:wght@600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=JetBrains+Mono:wght@400&family=Space+Grotesk:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png" />
     <link rel="icon" href="/assets/icons/favicon.ico" sizes="any" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="msapplication-TileColor" content="#fafafa" />
     <meta name="theme-color" content="#fafafa" />
     <link rel="stylesheet" href="/assets/css/site.css" />
+    <script>!function(){var t;try{t=localStorage.getItem('theme')}catch(e){}if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t)}();</script>
   </head>
   <body>
-    <a class="skip-link" href="/">Back to home</a>
+    <a class="skip-link" href="#main">Skip to content</a>
+
     <div class="header-shell page">
-      <header class="site-header is-scrolled">
+      <header class="site-header">
         <div class="site-header__inner">
-          <a class="site-header__brand" href="https://stormaref.github.io/">Aref Azizian</a>
+          <button
+            type="button"
+            class="nav-toggle"
+            id="nav-toggle"
+            aria-expanded="false"
+            aria-controls="site-nav"
+            aria-label="Open menu"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path class="nav-toggle__line nav-toggle__line--top" d="M4 7h16" />
+              <path class="nav-toggle__line nav-toggle__line--mid" d="M4 12h16" />
+              <path class="nav-toggle__line nav-toggle__line--bottom" d="M4 17h16" />
+            </svg>
+          </button>
+          <a class="site-header__brand" href="/">Aref Azizian</a>
+          <nav class="site-nav" id="site-nav" aria-label="Primary">
+            <ul class="site-nav__links">
+              <li><a href="/">Home</a></li>
+              <li><a href="/papers/">Papers</a></li>
+              <li><a href="/books/">Books</a></li>
+              <li><a href="/blog/">Blog</a></li>
+              <li><a href="/about/">About</a></li>
+            </ul>
+          </nav>
+          <div class="site-header__actions">
+            <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch to dark mode">
+              <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+              <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            </button>
+            <a class="btn-nav btn-nav--primary site-header__email" href="mailto:storm.aref@gmail.com">Email</a>
+          </div>
         </div>
       </header>
     </div>
-    <main class="page-404">
+
+    <main id="main" class="page-404">
       <div>
         <h1>Page not found</h1>
         <p>The page you're looking for doesn't exist or has moved.</p>
-        <a class="btn btn--primary" href="https://stormaref.github.io/">Return home</a>
+        <a class="btn btn--primary" href="/">Return home</a>
       </div>
     </main>
+
     <footer class="site-footer page">
-      <p>Copyright &copy; <span id="year"></span> Aref Azizian.</p>
+      <p>
+        Copyright &copy;
+        <span id="year"></span>
+        Aref Azizian. All rights reserved.
+      </p>
     </footer>
-    <script>
-      document.getElementById("year").textContent = new Date().getFullYear();
-    </script>
+
+    <script src="/assets/js/site.js" defer></script>
   </body>
 </html>
