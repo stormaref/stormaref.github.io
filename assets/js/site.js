@@ -196,6 +196,15 @@
     }
   }
 
+  // Hero portrait intro: the photo is denoised out of noise like a diffusion
+  // sampler. The head script on pages with a portrait adds .gen-photo to
+  // <html> (hiding the <img>) unless reduced motion is set.
+  var genFigure = document.querySelector(".hero__photo");
+  var genImg = genFigure && genFigure.querySelector("img");
+  if (genImg && document.documentElement.classList.contains("gen-photo")) {
+    runPhotoGeneration(genFigure, genImg);
+  }
+
   var tagFilter = document.querySelector("[data-tag-filter]");
   var tagFilterList = document.querySelector("[data-tag-filter-list]");
   if (tagFilter && tagFilterList) {
@@ -508,4 +517,207 @@
     if (dialog && dialog.open) dialog.close();
     if (hideSuccess) hideSuccess();
   });
+
+  function runPhotoGeneration(figure, img) {
+    var root = document.documentElement;
+    var STEPS = 40;
+    var STEP_MS = 50;
+    // After this the CSS fallback in site.css has already faded the photo in.
+    var LATE_MS = 3500;
+
+    function showPhoto() {
+      root.classList.remove("gen-photo");
+      figure.classList.remove("is-generating");
+    }
+
+    function start() {
+      if (performance.now() > LATE_MS) return showPhoto();
+      try {
+        animate();
+      } catch (e) {
+        // e.g. a tainted canvas: skip the intro.
+        showPhoto();
+      }
+    }
+
+    if (img.complete) {
+      if (img.naturalWidth) start();
+      else showPhoto();
+    } else {
+      img.addEventListener("load", start);
+      img.addEventListener("error", showPhoto);
+    }
+
+    function animate() {
+      var box = img.getBoundingClientRect();
+      if (!box.width || !box.height) return showPhoto();
+      var dpr = window.devicePixelRatio || 1;
+      // Capped at the largest portrait asset (me-576.jpg).
+      var W = Math.max(64, Math.min(Math.round(box.width * dpr), 576));
+      var H = Math.max(64, Math.round((W * box.height) / box.width));
+      var N = W * H;
+
+      var canvas = document.createElement("canvas");
+      canvas.className = "hero__photo-gen";
+      canvas.width = W;
+      canvas.height = H;
+      canvas.setAttribute("aria-hidden", "true");
+      var ctx = canvas.getContext("2d");
+
+      // Same crop as object-fit: cover. This scales the whole image rather than
+      // using a source rect: for a srcset image Chrome reports naturalWidth in
+      // CSS pixels but reads source rects in bitmap pixels.
+      var scale = Math.max(W / img.naturalWidth, H / img.naturalHeight);
+      var dw = img.naturalWidth * scale;
+      var dh = img.naturalHeight * scale;
+      ctx.drawImage(img, (W - dw) / 2, (H - dh) / 2, dw, dh);
+      var src = ctx.getImageData(0, 0, W, H).data;
+
+      function cssColor(value) {
+        ctx.fillStyle = "#000";
+        ctx.fillStyle = value;
+        var n = parseInt(String(ctx.fillStyle).slice(1), 16) || 0;
+        return [((n >> 16) & 255) / 255, ((n >> 8) & 255) / 255, (n & 255) / 255];
+      }
+      var paper = cssColor(getComputedStyle(figure).backgroundColor);
+
+      var R = new Float32Array(N);
+      var G = new Float32Array(N);
+      var B = new Float32Array(N);
+      var tmp = new Float32Array(N);
+      var i, j;
+      for (i = 0, j = 0; i < N; i++, j += 4) {
+        R[i] = src[j] / 255;
+        G[i] = src[j + 1] / 255;
+        B[i] = src[j + 2] / 255;
+      }
+
+      // Noise in grains of about one CSS pixel, sampled at a random offset
+      // each step so every step gets fresh noise.
+      var grain = Math.max(1, Math.round(W / box.width));
+      var gridW = Math.ceil(W / grain);
+      var cell = new Int32Array(N);
+      for (i = 0; i < N; i++) {
+        cell[i] = Math.floor(Math.floor(i / W) / grain) * gridW + Math.floor((i % W) / grain);
+      }
+      var NOISE_PAD = 4096;
+      var noise = new Float32Array(gridW * Math.ceil(H / grain) + NOISE_PAD);
+      for (i = 0; i < noise.length; i++) {
+        noise[i] = (Math.random() + Math.random() - 1) * 2.45;
+      }
+
+      var blurR = new Float32Array(N);
+      var blurG = new Float32Array(N);
+      var blurB = new Float32Array(N);
+      var frame = ctx.createImageData(W, H);
+      var px = frame.data;
+
+      // One sampler step at progress p in (0, 1]: a blurred estimate of the
+      // photo rises out of the background colour while the noise fades.
+      // p = 1 draws the photo exactly.
+      function drawStep(p) {
+        // Eased so the noise lingers and the photo only sharpens near the end.
+        var q = p * p;
+        var alphaBar = Math.sin((q * Math.PI) / 2);
+        alphaBar *= alphaBar;
+        var signal = Math.sqrt(alphaBar);
+        var sigma = Math.sqrt(1 - alphaBar) * 0.3;
+        var radius = Math.round((W / 20) * (1 - q) * (1 - q));
+        var r = R;
+        var g = G;
+        var b = B;
+        if (radius > 0) {
+          blurR.set(R);
+          blurG.set(G);
+          blurB.set(B);
+          boxBlur(blurR, tmp, W, H, radius);
+          boxBlur(blurG, tmp, W, H, radius);
+          boxBlur(blurB, tmp, W, H, radius);
+          r = blurR;
+          g = blurG;
+          b = blurB;
+        }
+        // Mostly shared (luminance) noise with some per-channel colour noise.
+        var oL = Math.floor(Math.random() * NOISE_PAD);
+        var oR = Math.floor(Math.random() * NOISE_PAD);
+        var oG = Math.floor(Math.random() * NOISE_PAD);
+        var oB = Math.floor(Math.random() * NOISE_PAD);
+        for (var i = 0, j = 0; i < N; i++, j += 4) {
+          var c = cell[i];
+          var nl = 0.8 * noise[c + oL];
+          px[j] = (paper[0] + (r[i] - paper[0]) * signal + sigma * (nl + 0.6 * noise[c + oR])) * 255;
+          px[j + 1] = (paper[1] + (g[i] - paper[1]) * signal + sigma * (nl + 0.6 * noise[c + oG])) * 255;
+          px[j + 2] = (paper[2] + (b[i] - paper[2]) * signal + sigma * (nl + 0.6 * noise[c + oB])) * 255;
+          px[j + 3] = 255;
+        }
+        ctx.putImageData(frame, 0, 0);
+      }
+
+      var status = document.createElement("span");
+      status.className = "hero__photo-status";
+      status.setAttribute("aria-hidden", "true");
+
+      function showStep(step) {
+        drawStep((step + 1) / STEPS);
+        var n = String(step + 1);
+        status.textContent = "denoising " + (n.length < 2 ? "0" + n : n) + "/" + STEPS;
+      }
+
+      showStep(0);
+      figure.appendChild(canvas);
+      figure.appendChild(status);
+      figure.classList.add("is-generating");
+
+      var startTime = null;
+      var lastStep = 0;
+
+      function tick(now) {
+        if (startTime === null) startTime = now;
+        var step = Math.min(STEPS - 1, Math.floor((now - startTime) / STEP_MS));
+        if (step !== lastStep) {
+          lastStep = step;
+          showStep(step);
+        }
+        if (step === STEPS - 1) {
+          // The canvas now matches the photo, so swap the <img> in under it.
+          showPhoto();
+          figure.classList.add("is-generated");
+          setTimeout(function () {
+            figure.removeChild(canvas);
+            figure.removeChild(status);
+            figure.classList.remove("is-generated");
+          }, 600);
+          return;
+        }
+        requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+  }
+
+  // In-place box blur of a w*h plane; tmp is scratch space of the same size.
+  function boxBlur(data, tmp, w, h, r) {
+    blurLines(data, tmp, w, h, r, 1, w);
+    blurLines(tmp, data, h, w, r, w, 1);
+  }
+
+  // Running-sum blur along `count` lines of `len` samples, `step` apart within
+  // a line, with consecutive lines starting `stride` apart. Edges are clamped.
+  function blurLines(src, dst, len, count, r, step, stride) {
+    var norm = 1 / (2 * r + 1);
+    var last = len - 1;
+    for (var l = 0; l < count; l++) {
+      var base = l * stride;
+      var sum = 0;
+      for (var k = -r; k <= r; k++) {
+        sum += src[base + Math.min(last, Math.max(0, k)) * step];
+      }
+      for (var x = 0; x < len; x++) {
+        dst[base + x * step] = sum * norm;
+        sum +=
+          src[base + Math.min(last, x + r + 1) * step] -
+          src[base + Math.max(0, x - r) * step];
+      }
+    }
+  }
 })();

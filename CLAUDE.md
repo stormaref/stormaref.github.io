@@ -24,7 +24,7 @@ This is a **small multi-page static portfolio** — no framework, no bundler, no
 - **`about/index.html`** — the resume (there is no PDF): experience, education, publications, projects, references carousel, contact dialog, success overlay.
 - **`papers/`, `books/`, `blog/`** — list pages (paper cards with a hashtag filter, books with covers in `assets/covers/`, blog post cards).
 - **`assets/css/site.css`** — all styles, built around CSS custom properties defined in `:root`. Layout uses `--page-width` (68rem) constrained by `.page` wrappers. Responsive breakpoints are inline `@media` blocks.
-- **`assets/js/site.js`** — vanilla ES5 IIFE. Handles: mobile nav toggle, header scroll shadow, smooth scroll, IntersectionObserver-based active nav highlighting, section fade-in animation, contact `<dialog>`, success overlay (triggered by `?success` param), and the references carousel.
+- **`assets/js/site.js`** — vanilla ES5 IIFE. Handles: mobile nav toggle, header scroll shadow, smooth scroll, IntersectionObserver-based active nav highlighting, section fade-in animation, contact `<dialog>`, success overlay (triggered by `?success` param), the references carousel, and the hero portrait intro.
 - **`404.html`** — error page using the shared header and footer.
 - **`tax/index.html`** — standalone tax calculation utility, independent from the main site.
 
@@ -37,6 +37,8 @@ This is a **small multi-page static portfolio** — no framework, no bundler, no
 **Navigation**: The header is two-tier. The top row (wordmark, Home/Papers/Books/Blog/About, theme toggle, Email) is identical on every page; the active link has `class="is-active" aria-current="page"`. Below 768px the links move into the hamburger menu. On `/about/` only (`<body class="has-subnav">`), a `.subnav` row inside the header holds the section pills and stays visible on phones as a horizontal scroller.
 
 **Active section**: Uses `IntersectionObserver` on each `<section id="...">` and matches against the `.subnav a[data-section]` pills. The `rootMargin: "-35% 0px -45% 0px"` excludes the top/bottom thirds so the active section is the one occupying the middle viewport band.
+
+**Portrait intro**: On pages with a `.hero__photo` (home and `/about/`), a second inline head script adds `gen-photo` to `<html>` unless reduced motion is set, which keeps the `<img>` hidden. `runPhotoGeneration` in `site.js` then overlays a canvas that "denoises" the photo out of noise over 40 steps, like a diffusion sampler, then swaps the real `<img>` back in. If `site.js` never takes over, a CSS fallback fades the photo in after 4.5s. A new page with the portrait needs that head line too.
 
 **Section animations**: `.section` elements gain `.is-visible` when they intersect at 8% threshold; CSS transitions on that class drive the fade-in. Skipped entirely when `prefers-reduced-motion` is set.
 
