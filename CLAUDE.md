@@ -20,27 +20,33 @@ The site deploys automatically on push to `main` via GitHub Pages. The `_config.
 
 This is a **small multi-page static portfolio** — no framework, no bundler, no dependencies beyond Google Fonts. Every page repeats the same `<head>` theme script, header and footer markup inline, so header/nav changes must be made on all of them.
 
-- **`index.html`** — home: hero and the "What's here" hub cards.
-- **`about/index.html`** — the resume (there is no PDF): experience, education, publications, projects, references carousel, contact dialog, success overlay.
-- **`papers/`, `books/`, `blog/`** — list pages (paper cards with a hashtag filter, books with covers in `assets/covers/`, blog post cards).
+- **`index.html`** — home: hero, the "Now" strip, and "Selected work" cards.
+- **`about/index.html`** — the resume (there is no PDF): experience, education, publications, projects, stacked references, contact dialog, success overlay.
+- **`research/index.html`** — research summary and publications. The publication list is duplicated on `/about/#publications`; keep both in sync.
+- **`books/`, `papers/`** — the two tabs of "Reading", Books first and the default (books grouped into "Reading now" and "Finished", covers in `assets/covers/`; paper cards with a topic filter). Both pages share the same header and `.tabs` row; update the tab counts when adding items.
+- **`blog/`** — "Writing": article cards.
 - **`assets/css/site.css`** — all styles, built around CSS custom properties defined in `:root`. Layout uses `--page-width` (68rem) constrained by `.page` wrappers. Responsive breakpoints are inline `@media` blocks.
-- **`assets/js/site.js`** — vanilla ES5 IIFE. Handles: mobile nav toggle, header scroll shadow, smooth scroll, IntersectionObserver-based active nav highlighting, section fade-in animation, contact `<dialog>`, success overlay (triggered by `?success` param), the references carousel, and the hero portrait intro.
-- **`404.html`** — error page using the shared header and footer.
+- **`assets/js/site.js`** — vanilla ES5 IIFE. Handles: mobile nav toggle, header scroll shadow, smooth scroll, IntersectionObserver-based active nav highlighting, section fade-in animation, contact `<dialog>`, success overlay (triggered by `?success` param), the papers topic filter, the hero portrait intro, and the 404 noise effect.
+- **`404.html`** — "Lost in the noise" error page; `site.js` redraws the `[data-noise-404]` code as text in animated noise.
 - **`tax/index.html`** — standalone tax calculation utility, independent from the main site.
 
 ## Key Interactions
 
 **Contact form**: POSTs to Formspree (`formspree.io/f/moqzdkbk`). On success, Formspree redirects to `/?success`, which the JS detects to show the success overlay.
 
-**References carousel**: The `[data-references-carousel]` container drives a CSS `transform: translate3d` carousel. Supports mouse prev/next buttons, keyboard arrows, touch swipe (48px threshold), and dot navigation. All slides are `.reference` blockquotes inside `.references-carousel__track`. Adding a new testimonial means adding a new `<blockquote class="reference">` — the JS auto-assigns IDs and builds dots dynamically.
+**References**: `.reference` blockquotes stacked in a `.references` grid (two columns from 900px). Each starts with a `.reference__lead` pull quote taken from its own text.
 
-**Navigation**: The header is two-tier. The top row (wordmark, Home/Papers/Books/Blog/About, theme toggle, Email) is identical on every page; the active link has `class="is-active" aria-current="page"`. Below 768px the links move into the hamburger menu. On `/about/` only (`<body class="has-subnav">`), a `.subnav` row inside the header holds the section pills and stays visible on phones as a horizontal scroller.
+**Navigation**: `.site-header` is a transparent wrapper around frosted-glass capsules. The top bar (`.site-header__inner`: logo mark + name, Home/Research/Writing/Reading/About as a segmented pill control, theme toggle, Email) is identical on every page; the active link has `class="is-active" aria-current="page"` (on `/papers/`, "Reading" uses `aria-current="true"` since it links to `/books/`, the default Reading tab). Below 768px the links move into a dropdown under the bars, opened by the menu button on the right. On `/about/` only (`<body class="has-subnav">`), the `.subnav` section pills are a second, smaller capsule below the bar and scroll horizontally on phones. The footer (copyright plus Email/GitHub/Scholar/LinkedIn) is also repeated on every page.
+
+**Favicon and logo mark**: the "a." tile in `assets/icons/` (16/32 PNG, multi-size `favicon.ico`, 180 Apple touch icon, 192/512 Android). The header logo uses `android-chrome-192x192.png`. Icon `<link>`s carry a `?v=3` cache-buster; bump it on every page when the icons change.
+
+**Section illustrations**: on Research, Writing (`/blog/`) and Reading (`/papers/`, `/books/`) the page header is a `.page-header` grid with a `.page-art` tile beside the title: an inline SVG animated purely with CSS keyframes (noisy labels getting corrected, lines writing themselves, a page turning). Animations are switched off under `prefers-reduced-motion`, so each SVG's un-animated state must look complete.
 
 **Active section**: Uses `IntersectionObserver` on each `<section id="...">` and matches against the `.subnav a[data-section]` pills. The `rootMargin: "-35% 0px -45% 0px"` excludes the top/bottom thirds so the active section is the one occupying the middle viewport band.
 
-**Portrait intro**: On pages with a `.hero__photo` (home and `/about/`), a second inline head script adds `gen-photo` to `<html>` unless reduced motion is set, which keeps the `<img>` hidden. `runPhotoGeneration` in `site.js` then overlays a canvas that "denoises" the photo out of noise over 40 steps, like a diffusion sampler, then swaps the real `<img>` back in. If `site.js` never takes over, a CSS fallback fades the photo in after 4.5s. A new page with the portrait needs that head line too.
+**Portrait intro**: On pages with a `.hero__photo` (home and `/about/`), a second inline head script adds `gen-photo` to `<html>` unless reduced motion is set or the intro already played this session (`sessionStorage`), which keeps the `<img>` hidden. `runPhotoGeneration` in `site.js` waits until the photo is loaded and half on screen, overlays a canvas that "denoises" the photo out of noise over 40 steps, like a diffusion sampler, then swaps the real `<img>` back in. Clicking the portrait replays it. If `site.js` never takes over, a CSS fallback fades the photo in after 4.5s. A new page with the portrait needs that head line too.
 
-**Section animations**: `.section` elements gain `.is-visible` when they intersect at 8% threshold; CSS transitions on that class drive the fade-in. Skipped entirely when `prefers-reduced-motion` is set.
+**Section animations**: sections that start below the fold get `.reveal.is-pending` (hidden) and lose `.is-pending` when they intersect at 8% threshold, which transitions them in. Sections already on screen are never hidden. Skipped entirely when `prefers-reduced-motion` is set.
 
 ## Content Conventions
 

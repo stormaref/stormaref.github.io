@@ -63,16 +63,16 @@
       href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=JetBrains+Mono:wght@400&family=Space+Grotesk:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png" />
-    <link rel="icon" href="/assets/icons/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png?v=3" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png?v=3" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png?v=3" />
+    <link rel="icon" href="/assets/icons/favicon.ico?v=3" sizes="any" />
     <link rel="manifest" href="/manifest.json" />
-    <meta name="msapplication-TileColor" content="#fafafa" />
+    <meta name="msapplication-TileColor" content="#09090b" />
     <meta name="theme-color" content="#fafafa" />
     <link rel="stylesheet" href="/assets/css/site.css" />
     <script>!function(){var t;try{t=localStorage.getItem('theme')}catch(e){}if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t)}();</script>
-    <script>matchMedia('(prefers-reduced-motion: reduce)').matches||document.documentElement.classList.add('gen-photo');</script>
+    <script>!function(){try{if(matchMedia('(prefers-reduced-motion: reduce)').matches||sessionStorage.getItem('gen-photo'))return}catch(e){return}document.documentElement.classList.add('gen-photo')}();</script>
   </head>
   <body class="has-subnav">
     <a class="skip-link" href="#main">Skip to content</a>
@@ -94,13 +94,16 @@
               <path class="nav-toggle__line nav-toggle__line--bottom" d="M4 17h16" />
             </svg>
           </button>
-          <a class="site-header__brand" href="/">Aref Azizian</a>
+          <a class="site-header__brand" href="/">
+            <img class="site-header__mark" src="/assets/icons/android-chrome-192x192.png" alt="" width="28" height="28" />
+            <span class="site-header__name">Aref Azizian</span>
+          </a>
           <nav class="site-nav" id="site-nav" aria-label="Primary">
             <ul class="site-nav__links">
               <li><a href="/">Home</a></li>
-              <li><a href="/papers/">Papers</a></li>
-              <li><a href="/books/">Books</a></li>
-              <li><a href="/blog/">Blog</a></li>
+              <li><a href="/research/">Research</a></li>
+              <li><a href="/blog/">Writing</a></li>
+              <li><a href="/books/">Reading</a></li>
               <li><a href="/about/" class="is-active" aria-current="page">About</a></li>
             </ul>
           </nav>
@@ -130,13 +133,16 @@
         <div class="hero__grid">
           <div>
             <h1 class="hero__title">Aref Azizian</h1>
-            <p class="hero__lead">AI Engineer, ML Researcher &amp; Ph.D. Student</p>
+            <p class="hero__lead"><span>AI Engineer at System Group</span><span class="sr-only">, </span> <span>Ph.D. student at Amirkabir University of Technology</span></p>
             <p class="hero__intro">
-              You've stumbled upon my page — now let's get acquainted.
+              Since 2020 I&rsquo;ve shipped backend systems in .NET and Go for
+              fintech, banking and enterprise software. Now I build LLM products
+              at System Group and research learning from noisy labels. Two IEEE
+              papers and an OpenReview preprint; M.Sc. ranked 1st.
             </p>
             <div class="hero__actions">
-              <button type="button" class="btn btn--primary" data-open-contact>Let's talk</button>
-              <a class="btn btn--secondary" href="mailto:storm.aref@gmail.com">Email me</a>
+              <button type="button" class="btn btn--primary" data-open-contact>Get in touch</button>
+              <a class="hero__email" href="mailto:storm.aref@gmail.com">storm.aref@gmail.com</a>
             </div>
             <div class="social" aria-label="Social profiles">
               <a href="https://scholar.google.com/citations?user=ppS6tJUAAAAJ&amp;hl=en&amp;oi=ao" target="_blank" rel="noopener noreferrer" aria-label="Google Scholar">
@@ -170,7 +176,7 @@
         <div class="section__inner">
           <header class="section-header">
             <span class="eyebrow">Career</span>
-            <h2 class="section-title">Relevant Experience</h2>
+            <h2 class="section-title">Experience</h2>
           </header>
           <ol class="timeline">
             <li class="timeline__item">
@@ -331,7 +337,7 @@
               <article class="timeline__content">
                 <p class="timeline__date">2023&ndash;2025</p>
                 <h3>M.Sc. Computer Science</h3>
-                <p>GPA: 19.71/20 &mdash; Ranked Top 1 Student</p>
+                <p>GPA 19.71/20 &mdash; ranked 1st</p>
                 <p>
                   Thesis:
                   <em>Label Noise Detection and Correction via Ensemble of Siamese Networks</em>
@@ -363,56 +369,45 @@
             <span class="eyebrow">Research</span>
             <h2 class="section-title">Publications</h2>
           </header>
+          <h3 class="entries-group">Conference papers</h3>
           <ul class="entries">
             <li class="entries__item">
-              <div class="entries__head">
-                <h3>
-                  <a href="https://openreview.net/forum?id=RSppi0Z8k2" target="_blank" rel="noopener noreferrer">
-                    Label Noise Detection and Correction via Ensemble of Siamese Networks
-                  </a>
-                </h3>
-                <a class="entries__link" href="https://openreview.net/forum?id=RSppi0Z8k2" target="_blank" rel="noopener noreferrer" aria-label="Open publication">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></svg>
-                </a>
-              </div>
-              <p>
-                Master's thesis, Amirkabir University of Technology. Preprint
-                on OpenReview.
-              </p>
+              <h4 class="entries__title">
+                <a href="https://ieeexplore.ieee.org/document/10931077" target="_blank" rel="noopener noreferrer">Preventing Overfitting on Noisy Labels Through Adaptive Checkpointing</a>
+              </h4>
+              <p class="entries__authors"><strong>A. Azizian</strong>, R. Ahmadian, M. Ghatee, M. Shamsi</p>
+              <p class="entries__meta">10th International Conference on Signal Processing and Intelligent Systems (ICSPIS), pp. 150&ndash;154. Shahrood, Iran, 2024.</p>
+              <ul class="entries__links">
+                <li><span class="entries__badge">IEEE ICSPIS 2024</span></li>
+                <li><a href="https://ieeexplore.ieee.org/document/10931077" target="_blank" rel="noopener noreferrer">IEEE Xplore</a></li>
+                <li><a href="https://doi.org/10.1109/ICSPIS65223.2024.10931077" target="_blank" rel="noopener noreferrer">DOI</a></li>
+              </ul>
             </li>
             <li class="entries__item">
-              <div class="entries__head">
-                <h3>
-                  <a href="https://doi.org/10.1109/SCIoT62588.2024.10570108" target="_blank" rel="noopener noreferrer">
-                    Enhanced Multi-Modal Gas Leakage Detection with NSMOTE: A Novel Over-sampling Approach
-                  </a>
-                </h3>
-                <a class="entries__link" href="https://doi.org/10.1109/SCIoT62588.2024.10570108" target="_blank" rel="noopener noreferrer" aria-label="Open publication">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></svg>
-                </a>
-              </div>
-              <p>
-                In 8th International Conference on Smart Cities, Internet of
-                Things and Applications (SCIoT), pp. 94&ndash;99. IEEE. 2024,
-                Mashhad, Iran.
-              </p>
+              <h4 class="entries__title">
+                <a href="https://doi.org/10.1109/SCIoT62588.2024.10570108" target="_blank" rel="noopener noreferrer">Enhanced Multi-Modal Gas Leakage Detection with NSMOTE: A Novel Over-sampling Approach</a>
+              </h4>
+              <p class="entries__authors"><strong>A. Azizian</strong>, B. Yousefimehr, M. Ghatee</p>
+              <p class="entries__meta">8th International Conference on Smart Cities, Internet of Things and Applications (SCIoT), pp. 94&ndash;99. Mashhad, Iran, 2024.</p>
+              <ul class="entries__links">
+                <li><span class="entries__badge">IEEE SCIoT 2024</span></li>
+                <li><a href="https://ieeexplore.ieee.org/document/10570108" target="_blank" rel="noopener noreferrer">IEEE Xplore</a></li>
+                <li><a href="https://doi.org/10.1109/SCIoT62588.2024.10570108" target="_blank" rel="noopener noreferrer">DOI</a></li>
+              </ul>
             </li>
+          </ul>
+          <h3 class="entries-group">Preprints</h3>
+          <ul class="entries">
             <li class="entries__item">
-              <div class="entries__head">
-                <h3>
-                  <a href="https://ieeexplore.ieee.org/document/10931077" target="_blank" rel="noopener noreferrer">
-                    Preventing Overfitting on Noisy Labels Through Adaptive Checkpointing
-                  </a>
-                </h3>
-                <a class="entries__link" href="https://ieeexplore.ieee.org/document/10931077" target="_blank" rel="noopener noreferrer" aria-label="Open publication">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></svg>
-                </a>
-              </div>
-              <p>
-                In 10th International Conference on Signal Processing and
-                Intelligent Systems (ICSPIS), pp. 150&ndash;154. IEEE. 2024,
-                Shahrood, Iran.
-              </p>
+              <h4 class="entries__title">
+                <a href="https://openreview.net/forum?id=RSppi0Z8k2" target="_blank" rel="noopener noreferrer">Label Noise Detection and Correction via Ensemble of Siamese Networks</a>
+              </h4>
+              <p class="entries__meta">Master&rsquo;s thesis, Amirkabir University of Technology. Preprint on OpenReview.</p>
+              <ul class="entries__links">
+                <li><span class="entries__badge">M.Sc. thesis</span></li>
+                <li><a href="https://openreview.net/forum?id=RSppi0Z8k2" target="_blank" rel="noopener noreferrer">OpenReview</a></li>
+                <li><a href="https://github.com/stormaref/SiameseNoiseDetection" target="_blank" rel="noopener noreferrer">Code</a></li>
+              </ul>
             </li>
           </ul>
         </div>
@@ -423,7 +418,7 @@
         <div class="page">
         <div class="section__inner">
           <header class="section-header">
-            <span class="eyebrow">Selected work</span>
+            <span class="eyebrow">Open source</span>
             <h2 class="section-title">Projects</h2>
             <p class="section-desc">Open-source tools and research experiments.</p>
           </header>
@@ -496,109 +491,74 @@
               <span class="eyebrow">Testimonials</span>
               <h2 class="section-title">References</h2>
             </header>
-            <div class="references-carousel" data-references-carousel>
-              <button
-                type="button"
-                class="references-carousel__btn references-carousel__btn--prev"
-                data-ref-prev
-                aria-label="Previous reference"
-                disabled
-              >
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                  <path d="M15 18l-6-6 6-6" />
-                </svg>
-              </button>
-              <div
-                class="references-carousel__viewport"
-                tabindex="0"
-                role="region"
-                aria-roledescription="carousel"
-                aria-label="References"
-              >
-                <div class="references-carousel__track">
-                  <blockquote class="reference" id="reference-1">
-                    <p>
-                      I'm pleased to recommend Aref, whom I managed directly.
-                      Although he came with 7 years of .NET experience, he ramped up
-                      on Golang extremely fast and quickly became a key contributor.
-                      During our six months working together on a procurement
-                      project, he consistently delivered clean, high-quality backend
-                      code and showed a strong ability to understand our business
-                      domain. Aref is reliable, fast-learning, and a great teammate.
-                      He would be an asset to any engineering team.
-                    </p>
-                    <footer>
-                      <p class="reference__author">Ali Janalizadeh</p>
-                      <p class="reference__role">Team Lead @ System Group</p>
-                    </footer>
-                  </blockquote>
-                  <!--
-                  <blockquote class="reference" id="reference-2">
-                    <p>
-                      It is with great pleasure that I recommend Aref for any
-                      professional endeavor. I had the privilege of working with
-                      Aref and was continually impressed with his knowledge,
-                      expertise, dedication to excellence, and attention to detail.
-                      Aref has an incredible depth of knowledge in development, and
-                      he always demonstrated a thorough understanding of the
-                      industry and the latest trends and developments. He was able
-                      to provide invaluable insights and recommendations that helped
-                      our team achieve our goals and exceed our client's
-                      expectations. In addition to his impressive expertise, Aref is
-                      an absolute pleasure to work with. He is a great communicator,
-                      always willing to listen and collaborate with others to
-                      achieve the best outcomes. His positive attitude and
-                      willingness to go above and beyond make him an asset to any
-                      team. Overall, I cannot recommend Aref highly enough. He is an
-                      exceptional professional and an absolute pleasure to work
-                      with. Any organization or project would be lucky to have him
-                      on board.
-                    </p>
-                    <footer>
-                      <p class="reference__author">Ali Shajari</p>
-                      <p class="reference__role">Research Assistant @ Carleton University</p>
-                    </footer>
-                  </blockquote>
-                  -->
-                  <blockquote class="reference" id="reference-3">
-                    <p>
-                      Aref not only possesses theoretical knowledge and academic
-                      background on AI and deep learning, but he's also a very good
-                      AI engineer. In the AI Development Empowerment team of System
-                      Group, he delivered high-quality projects in a very short
-                      period of time. His work directly enhanced the productivity of
-                      more than 400 engineers and 40+ teams, and indirectly
-                      accelerated the quality of our ERP software with tens of
-                      thousands of business customers. Aref is a very fun person to
-                      work with and also a very good teacher. His thirst for
-                      knowledge and learning more stood out from the first moment I
-                      met him. He listens carefully, analyzes the solutions by
-                      thinking out of the box, and implements them as a true
-                      overachiever while being modest.
-                    </p>
-                    <footer>
-                      <p class="reference__author">Aryan Ebrahimpour</p>
-                      <p class="reference__role">Team Lead @ System Group</p>
-                    </footer>
-                  </blockquote>
-                </div>
-              </div>
-              <button
-                type="button"
-                class="references-carousel__btn references-carousel__btn--next"
-                data-ref-next
-                aria-label="Next reference"
-              >
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                  <path d="M9 18l6-6-6-6" />
-                </svg>
-              </button>
-              <div class="references-carousel__controls">
-                <div class="references-carousel__dots" data-ref-dots role="tablist" aria-label="Reference slides"></div>
-                <p class="references-carousel__progress" aria-live="polite">
-                  <span data-ref-current>1</span> of <span data-ref-total>2</span>
+            <div class="references">
+              <blockquote class="reference">
+                <p class="reference__lead">&ldquo;His work directly enhanced the productivity of more than 400 engineers and 40+ teams.&rdquo;</p>
+                <p>
+                  Aref not only possesses theoretical knowledge and academic
+                  background on AI and deep learning, but he's also a very good
+                  AI engineer. In the AI Development Empowerment team of System
+                  Group, he delivered high-quality projects in a very short
+                  period of time. His work directly enhanced the productivity of
+                  more than 400 engineers and 40+ teams, and indirectly
+                  accelerated the quality of our ERP software with tens of
+                  thousands of business customers. Aref is a very fun person to
+                  work with and also a very good teacher. His thirst for
+                  knowledge and learning more stood out from the first moment I
+                  met him. He listens carefully, analyzes the solutions by
+                  thinking out of the box, and implements them as a true
+                  overachiever while being modest.
                 </p>
-              </div>
+                <footer>
+                  <p class="reference__author">Aryan Ebrahimpour</p>
+                  <p class="reference__role">Team Lead @ System Group</p>
+                </footer>
+              </blockquote>
+              <blockquote class="reference">
+                <p class="reference__lead">&ldquo;He ramped up on Golang extremely fast and quickly became a key contributor.&rdquo;</p>
+                <p>
+                  I'm pleased to recommend Aref, whom I managed directly.
+                  Although he came with 7 years of .NET experience, he ramped up
+                  on Golang extremely fast and quickly became a key contributor.
+                  During our six months working together on a procurement
+                  project, he consistently delivered clean, high-quality backend
+                  code and showed a strong ability to understand our business
+                  domain. Aref is reliable, fast-learning, and a great teammate.
+                  He would be an asset to any engineering team.
+                </p>
+                <footer>
+                  <p class="reference__author">Ali Janalizadeh</p>
+                  <p class="reference__role">Team Lead @ System Group</p>
+                </footer>
+              </blockquote>
+              <!--
+              <blockquote class="reference" id="reference-2">
+                <p>
+                  It is with great pleasure that I recommend Aref for any
+                  professional endeavor. I had the privilege of working with
+                  Aref and was continually impressed with his knowledge,
+                  expertise, dedication to excellence, and attention to detail.
+                  Aref has an incredible depth of knowledge in development, and
+                  he always demonstrated a thorough understanding of the
+                  industry and the latest trends and developments. He was able
+                  to provide invaluable insights and recommendations that helped
+                  our team achieve our goals and exceed our client's
+                  expectations. In addition to his impressive expertise, Aref is
+                  an absolute pleasure to work with. He is a great communicator,
+                  always willing to listen and collaborate with others to
+                  achieve the best outcomes. His positive attitude and
+                  willingness to go above and beyond make him an asset to any
+                  team. Overall, I cannot recommend Aref highly enough. He is an
+                  exceptional professional and an absolute pleasure to work
+                  with. Any organization or project would be lucky to have him
+                  on board.
+                </p>
+                <footer>
+                  <p class="reference__author">Ali Shajari</p>
+                  <p class="reference__role">Research Assistant @ Carleton University</p>
+                </footer>
+              </blockquote>
+              -->
             </div>
           </div>
         </div>
@@ -607,11 +567,15 @@
     </main>
 
     <footer class="site-footer page">
-      <p>
-        Copyright &copy;
-        <span id="year"></span>
-        Aref Azizian. All rights reserved.
-      </p>
+      <div class="site-footer__inner">
+        <p>&copy; <span id="year"></span> Aref Azizian</p>
+        <ul class="site-footer__links">
+          <li><a href="mailto:storm.aref@gmail.com">Email</a></li>
+          <li><a href="https://github.com/stormaref" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          <li><a href="https://scholar.google.com/citations?user=ppS6tJUAAAAJ&amp;hl=en&amp;oi=ao" target="_blank" rel="noopener noreferrer">Scholar</a></li>
+          <li><a href="https://linkedin.com/in/arefazizian" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+        </ul>
+      </div>
     </footer>
 
     <dialog id="contact-dialog" aria-labelledby="contact-dialog-title">
@@ -628,7 +592,7 @@
             <input id="contact-name" type="text" name="name" required autocomplete="name" />
           </div>
           <div class="form-field">
-            <label for="contact-email">E-mail</label>
+            <label for="contact-email">Email</label>
             <input id="contact-email" type="email" name="_replyto" required autocomplete="email" />
           </div>
           <div class="form-field">

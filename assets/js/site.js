@@ -172,37 +172,51 @@
     }
   }
 
+  // Sections that start below the fold fade in when scrolled to. Sections
+  // already on screen are left alone so nothing visible blinks out.
   var sectionEls = document.querySelectorAll(".section");
-  if (sectionEls.length) {
-    if (!reducedMotion && "IntersectionObserver" in window) {
-      var sectionObserver = new IntersectionObserver(
-        function (entries, obs) {
-          entries.forEach(function (entry) {
-            if (entry.isIntersecting) {
-              entry.target.classList.add("is-visible");
-              obs.unobserve(entry.target);
-            }
-          });
-        },
-        { threshold: 0.08 }
-      );
-      sectionEls.forEach(function (el) {
-        sectionObserver.observe(el);
-      });
-    } else {
-      sectionEls.forEach(function (el) {
-        el.classList.add("is-visible");
-      });
-    }
+  if (sectionEls.length && !reducedMotion && "IntersectionObserver" in window) {
+    var sectionObserver = new IntersectionObserver(
+      function (entries, obs) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.remove("is-pending");
+            obs.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.08 }
+    );
+    sectionEls.forEach(function (el) {
+      if (el.getBoundingClientRect().top < window.innerHeight) return;
+      el.classList.add("reveal", "is-pending");
+      sectionObserver.observe(el);
+    });
   }
 
   // Hero portrait intro: the photo is denoised out of noise like a diffusion
   // sampler. The head script on pages with a portrait adds .gen-photo to
-  // <html> (hiding the <img>) unless reduced motion is set.
+  // <html> (hiding the <img>) unless reduced motion is set or the intro
+  // already played this session. Clicking the portrait replays it.
   var genFigure = document.querySelector(".hero__photo");
   var genImg = genFigure && genFigure.querySelector("img");
-  if (genImg && document.documentElement.classList.contains("gen-photo")) {
-    runPhotoGeneration(genFigure, genImg);
+  if (genImg && !reducedMotion) {
+    runPhotoGeneration(
+      genFigure,
+      genImg,
+      document.documentElement.classList.contains("gen-photo")
+    );
+  }
+
+  var noise404 = document.querySelector("[data-noise-404]");
+  if (noise404) {
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () {
+        runNoise404(noise404);
+      });
+    } else {
+      runNoise404(noise404);
+    }
   }
 
   var tagFilter = document.querySelector("[data-tag-filter]");
@@ -235,7 +249,7 @@
             tag === "all"
               ? "Showing all " + total + " papers"
               : "Showing " + shown + " of " + total + " papers \u00b7 " +
-                button.textContent;
+                button.firstChild.textContent.trim();
         }
       });
     });
@@ -305,212 +319,6 @@
     }
   }
 
-  var referencesCarousel = document.querySelector("[data-references-carousel]");
-  if (referencesCarousel) {
-    var carouselViewport = referencesCarousel.querySelector(
-      ".references-carousel__viewport"
-    );
-    var carouselTrack = referencesCarousel.querySelector(
-      ".references-carousel__track"
-    );
-    var refCurrent = referencesCarousel.querySelector("[data-ref-current]");
-    var refTotal = referencesCarousel.querySelector("[data-ref-total]");
-    var refDots = referencesCarousel.querySelector("[data-ref-dots]");
-    var refPrev = referencesCarousel.querySelector("[data-ref-prev]");
-    var refNext = referencesCarousel.querySelector("[data-ref-next]");
-    var slides = referencesCarousel.querySelectorAll(".reference");
-    var SWIPE_THRESHOLD = 48;
-
-    if (reducedMotion) {
-      referencesCarousel.classList.add("references-carousel--reduced");
-    }
-
-    function slideLabel(slide, index) {
-      var author = slide.querySelector(".reference__author");
-      return author ? author.textContent.trim() : "Reference " + (index + 1);
-    }
-
-    function buildDots() {
-      if (!refDots) return;
-      refDots.innerHTML = "";
-      slides.forEach(function (slide, index) {
-        var dot = document.createElement("button");
-        dot.type = "button";
-        dot.className = "references-carousel__dot";
-        dot.setAttribute("role", "tab");
-        dot.setAttribute("aria-selected", index === 0 ? "true" : "false");
-        dot.setAttribute("aria-controls", slide.id || "reference-" + (index + 1));
-        dot.setAttribute("aria-label", "Go to reference from " + slideLabel(slide, index));
-        if (index === 0) dot.classList.add("is-active");
-        dot.addEventListener("click", function () {
-          goTo(index);
-        });
-        refDots.appendChild(dot);
-      });
-    }
-
-    buildDots();
-
-    if (refTotal) refTotal.textContent = String(slides.length);
-
-    slides.forEach(function (slide, index) {
-      if (!slide.id) slide.id = "reference-" + (index + 1);
-    });
-
-    if (slides.length <= 1) {
-      if (refPrev) refPrev.hidden = true;
-      if (refNext) refNext.hidden = true;
-      return;
-    }
-
-    var currentIndex = 0;
-    var touchStartX = 0;
-    var touchStartY = 0;
-    var touchDeltaX = 0;
-    var touchLocked = null;
-
-    function updateAria(index) {
-      if (!carouselViewport) return;
-      carouselViewport.setAttribute(
-        "aria-label",
-        "References, " +
-          slideLabel(slides[index], index) +
-          ", " +
-          (index + 1) +
-          " of " +
-          slides.length
-      );
-    }
-
-    function updateProgress(index) {
-      if (refCurrent) refCurrent.textContent = String(index + 1);
-      if (refDots) {
-        refDots.querySelectorAll(".references-carousel__dot").forEach(function (dot, i) {
-          var isActive = i === index;
-          dot.classList.toggle("is-active", isActive);
-          dot.setAttribute("aria-selected", isActive ? "true" : "false");
-        });
-      }
-    }
-
-    function updateButtons(index) {
-      if (refPrev) refPrev.disabled = index <= 0;
-      if (refNext) refNext.disabled = index >= slides.length - 1;
-    }
-
-    function updateTrack(animate) {
-      if (!carouselTrack || !carouselViewport) return;
-      var slideWidth = carouselViewport.offsetWidth;
-      var offset = -currentIndex * slideWidth;
-      carouselTrack.style.transition =
-        animate && !reducedMotion
-          ? "transform 360ms cubic-bezier(0.22, 1, 0.36, 1)"
-          : "none";
-      carouselTrack.style.transform = "translate3d(" + offset + "px, 0, 0)";
-    }
-
-    function goTo(index, animate) {
-      if (index < 0 || index >= slides.length) return;
-      if (index === currentIndex && animate !== false) return;
-      currentIndex = index;
-      updateTrack(animate !== false);
-      updateAria(index);
-      updateProgress(index);
-      updateButtons(index);
-    }
-
-    if (refPrev) {
-      refPrev.addEventListener("click", function () {
-        goTo(currentIndex - 1);
-      });
-    }
-
-    if (refNext) {
-      refNext.addEventListener("click", function () {
-        goTo(currentIndex + 1);
-      });
-    }
-
-    if (carouselViewport) {
-      carouselViewport.addEventListener("keydown", function (e) {
-        if (
-          e.key !== "ArrowLeft" &&
-          e.key !== "ArrowRight" &&
-          e.key !== "Home" &&
-          e.key !== "End"
-        ) {
-          return;
-        }
-        e.preventDefault();
-        if (e.key === "ArrowLeft") goTo(currentIndex - 1);
-        else if (e.key === "ArrowRight") goTo(currentIndex + 1);
-        else if (e.key === "Home") goTo(0);
-        else if (e.key === "End") goTo(slides.length - 1);
-      });
-
-      carouselViewport.addEventListener(
-        "touchstart",
-        function (e) {
-          if (e.touches.length !== 1) return;
-          touchStartX = e.touches[0].clientX;
-          touchStartY = e.touches[0].clientY;
-          touchDeltaX = 0;
-          touchLocked = null;
-          carouselTrack.style.transition = "none";
-        },
-        { passive: true }
-      );
-
-      carouselViewport.addEventListener(
-        "touchmove",
-        function (e) {
-          if (e.touches.length !== 1) return;
-          var deltaX = e.touches[0].clientX - touchStartX;
-          var deltaY = e.touches[0].clientY - touchStartY;
-
-          if (touchLocked === null && (Math.abs(deltaX) > 8 || Math.abs(deltaY) > 8)) {
-            touchLocked = Math.abs(deltaX) > Math.abs(deltaY) ? "x" : "y";
-          }
-
-          if (touchLocked !== "x") return;
-
-          touchDeltaX = deltaX;
-          var slideWidth = carouselViewport.offsetWidth;
-          var baseOffset = -currentIndex * slideWidth;
-          var nextOffset = baseOffset + touchDeltaX;
-          var minOffset = -(slides.length - 1) * slideWidth;
-          nextOffset = Math.max(minOffset, Math.min(0, nextOffset));
-          carouselTrack.style.transform = "translate3d(" + nextOffset + "px, 0, 0)";
-        },
-        { passive: true }
-      );
-
-      carouselViewport.addEventListener("touchend", function () {
-        if (touchLocked !== "x") {
-          updateTrack(true);
-          return;
-        }
-
-        if (touchDeltaX <= -SWIPE_THRESHOLD && currentIndex < slides.length - 1) {
-          goTo(currentIndex + 1);
-        } else if (touchDeltaX >= SWIPE_THRESHOLD && currentIndex > 0) {
-          goTo(currentIndex - 1);
-        } else {
-          updateTrack(true);
-        }
-
-        touchDeltaX = 0;
-        touchLocked = null;
-      });
-    }
-
-    goTo(0, false);
-
-    window.addEventListener("resize", function () {
-      updateTrack(false);
-    });
-  }
-
   document.addEventListener("keydown", function (e) {
     if (e.key !== "Escape") return;
     if (siteNav && siteNav.classList.contains("is-open")) setNavOpen(false);
@@ -518,35 +326,82 @@
     if (hideSuccess) hideSuccess();
   });
 
-  function runPhotoGeneration(figure, img) {
+  function runPhotoGeneration(figure, img, autoplay) {
     var root = document.documentElement;
     var STEPS = 40;
     var STEP_MS = 50;
     // After this the CSS fallback in site.css has already faded the photo in.
     var LATE_MS = 3500;
+    var running = false;
 
     function showPhoto() {
       root.classList.remove("gen-photo");
       figure.classList.remove("is-generating");
     }
 
-    function start() {
-      if (performance.now() > LATE_MS) return showPhoto();
+    function play() {
+      if (running) return;
+      running = true;
       try {
         animate();
       } catch (e) {
         // e.g. a tainted canvas: skip the intro.
+        running = false;
         showPhoto();
       }
     }
 
-    if (img.complete) {
-      if (img.naturalWidth) start();
-      else showPhoto();
-    } else {
-      img.addEventListener("load", start);
-      img.addEventListener("error", showPhoto);
+    // Calls back once the photo has loaded and is at least half on screen, so
+    // the intro doesn't play out below the fold.
+    function whenLoadedAndVisible(callback) {
+      var loaded = img.complete && img.naturalWidth > 0;
+      var visible = !("IntersectionObserver" in window);
+      function check() {
+        if (loaded && visible) callback();
+      }
+      if (!loaded) {
+        if (img.complete) return showPhoto();
+        img.addEventListener("load", function () {
+          loaded = true;
+          check();
+        });
+        img.addEventListener("error", showPhoto);
+      }
+      if (!visible) {
+        var observer = new IntersectionObserver(
+          function (entries) {
+            if (!entries[0].isIntersecting) return;
+            observer.disconnect();
+            visible = true;
+            check();
+          },
+          { threshold: 0.5 }
+        );
+        observer.observe(figure);
+      }
+      check();
     }
+
+    if (autoplay) {
+      if (performance.now() > LATE_MS) {
+        showPhoto();
+      } else {
+        // Hide the photo (and cancel the CSS fallback) until the intro starts.
+        figure.classList.add("is-generating");
+        whenLoadedAndVisible(function () {
+          try {
+            sessionStorage.setItem("gen-photo", "1");
+          } catch (e) {}
+          play();
+        });
+      }
+    }
+
+    figure.classList.add("can-replay");
+    figure.title = "Click to replay";
+    figure.addEventListener("click", function () {
+      if (img.complete && img.naturalWidth) play();
+    });
 
     function animate() {
       var box = img.getBoundingClientRect();
@@ -573,13 +428,7 @@
       ctx.drawImage(img, (W - dw) / 2, (H - dh) / 2, dw, dh);
       var src = ctx.getImageData(0, 0, W, H).data;
 
-      function cssColor(value) {
-        ctx.fillStyle = "#000";
-        ctx.fillStyle = value;
-        var n = parseInt(String(ctx.fillStyle).slice(1), 16) || 0;
-        return [((n >> 16) & 255) / 255, ((n >> 8) & 255) / 255, (n & 255) / 255];
-      }
-      var paper = cssColor(getComputedStyle(figure).backgroundColor);
+      var paper = cssColor(ctx, getComputedStyle(figure).backgroundColor);
 
       var R = new Float32Array(N);
       var G = new Float32Array(N);
@@ -637,17 +486,17 @@
           g = blurG;
           b = blurB;
         }
-        // Mostly shared (luminance) noise with some per-channel colour noise.
+        // Mostly shared (luminance) noise with a little per-channel colour.
         var oL = Math.floor(Math.random() * NOISE_PAD);
         var oR = Math.floor(Math.random() * NOISE_PAD);
         var oG = Math.floor(Math.random() * NOISE_PAD);
         var oB = Math.floor(Math.random() * NOISE_PAD);
         for (var i = 0, j = 0; i < N; i++, j += 4) {
           var c = cell[i];
-          var nl = 0.8 * noise[c + oL];
-          px[j] = (paper[0] + (r[i] - paper[0]) * signal + sigma * (nl + 0.6 * noise[c + oR])) * 255;
-          px[j + 1] = (paper[1] + (g[i] - paper[1]) * signal + sigma * (nl + 0.6 * noise[c + oG])) * 255;
-          px[j + 2] = (paper[2] + (b[i] - paper[2]) * signal + sigma * (nl + 0.6 * noise[c + oB])) * 255;
+          var nl = 0.95 * noise[c + oL];
+          px[j] = (paper[0] + (r[i] - paper[0]) * signal + sigma * (nl + 0.3 * noise[c + oR])) * 255;
+          px[j + 1] = (paper[1] + (g[i] - paper[1]) * signal + sigma * (nl + 0.3 * noise[c + oG])) * 255;
+          px[j + 2] = (paper[2] + (b[i] - paper[2]) * signal + sigma * (nl + 0.3 * noise[c + oB])) * 255;
           px[j + 3] = 255;
         }
         ctx.putImageData(frame, 0, 0);
@@ -686,6 +535,7 @@
             figure.removeChild(canvas);
             figure.removeChild(status);
             figure.classList.remove("is-generated");
+            running = false;
           }, 600);
           return;
         }
@@ -693,6 +543,94 @@
       }
       requestAnimationFrame(tick);
     }
+  }
+
+  // The 404 code drawn as text half-buried in animated noise.
+  function runNoise404(el) {
+    var box = el.getBoundingClientRect();
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var W = Math.round(box.width * dpr);
+    var H = Math.round(box.height * dpr);
+    if (!W || !H) return;
+
+    var canvas = document.createElement("canvas");
+    canvas.width = W;
+    canvas.height = H;
+    canvas.setAttribute("aria-hidden", "true");
+    var ctx = canvas.getContext("2d");
+    var style = getComputedStyle(el);
+    ctx.font =
+      style.fontWeight + " " + parseFloat(style.fontSize) * dpr + "px " + style.fontFamily;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillStyle = "#000";
+    ctx.fillText(el.textContent.trim(), W / 2, H / 2);
+    var glyphs = ctx.getImageData(0, 0, W, H).data;
+
+    // Ink per pixel, and opacity: the glyphs plus a noise field that fades
+    // out towards the edges in an oval, so the canvas has no visible box.
+    var N = W * H;
+    var ink = new Float32Array(N);
+    var alpha = new Float32Array(N);
+    for (var i = 0; i < N; i++) {
+      var dx = ((i % W) - W / 2) / (W / 2);
+      var dy = (Math.floor(i / W) - H / 2) / (H / 2);
+      var field = Math.max(0, Math.min(1, (1 - Math.sqrt(dx * dx + dy * dy)) * 1.6));
+      var coverage = glyphs[i * 4 + 3] / 255;
+      ink[i] = coverage * 0.85;
+      alpha[i] = Math.max(coverage, 0.5 * field);
+    }
+    var grain = Math.max(1, Math.round(dpr * 2));
+    var gridW = Math.ceil(W / grain);
+    var cell = new Int32Array(N);
+    for (i = 0; i < N; i++) {
+      cell[i] = Math.floor(Math.floor(i / W) / grain) * gridW + Math.floor((i % W) / grain);
+    }
+    var NOISE_PAD = 4096;
+    var noise = new Float32Array(gridW * Math.ceil(H / grain) + NOISE_PAD);
+    for (i = 0; i < noise.length; i++) {
+      noise[i] = (Math.random() + Math.random() - 1) * 2.45;
+    }
+    var frame = ctx.createImageData(W, H);
+    var px = frame.data;
+
+    el.appendChild(canvas);
+    el.classList.add("has-noise");
+
+    function draw() {
+      // Colours are re-read each frame so the theme toggle applies.
+      var fg = cssColor(ctx, getComputedStyle(el.parentNode).color);
+      var bg = cssColor(ctx, getComputedStyle(document.body).backgroundColor);
+      var o = Math.floor(Math.random() * NOISE_PAD);
+      for (var i = 0, j = 0; i < N; i++, j += 4) {
+        var a = ink[i];
+        var n = 0.16 * noise[cell[i] + o];
+        px[j] = (bg[0] + (fg[0] - bg[0]) * a + n) * 255;
+        px[j + 1] = (bg[1] + (fg[1] - bg[1]) * a + n) * 255;
+        px[j + 2] = (bg[2] + (fg[2] - bg[2]) * a + n) * 255;
+        px[j + 3] = 255 * alpha[i];
+      }
+      ctx.putImageData(frame, 0, 0);
+    }
+
+    draw();
+    if (reducedMotion) return;
+    var last = 0;
+    requestAnimationFrame(function tick(now) {
+      if (now - last > 90) {
+        last = now;
+        draw();
+      }
+      requestAnimationFrame(tick);
+    });
+  }
+
+  // A CSS colour as [r, g, b] in 0..1, normalised through the canvas parser.
+  function cssColor(ctx, value) {
+    ctx.fillStyle = "#000";
+    ctx.fillStyle = value;
+    var n = parseInt(String(ctx.fillStyle).slice(1), 16) || 0;
+    return [((n >> 16) & 255) / 255, ((n >> 8) & 255) / 255, (n & 255) / 255];
   }
 
   // In-place box blur of a w*h plane; tmp is scratch space of the same size.

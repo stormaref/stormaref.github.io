@@ -47,12 +47,12 @@
       href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=JetBrains+Mono:wght@400&family=Space+Grotesk:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png" />
-    <link rel="icon" href="/assets/icons/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png?v=3" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png?v=3" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png?v=3" />
+    <link rel="icon" href="/assets/icons/favicon.ico?v=3" sizes="any" />
     <link rel="manifest" href="/manifest.json" />
-    <meta name="msapplication-TileColor" content="#fafafa" />
+    <meta name="msapplication-TileColor" content="#09090b" />
     <meta name="theme-color" content="#fafafa" />
     <link rel="stylesheet" href="/assets/css/site.css" />
     <script>!function(){var t;try{t=localStorage.getItem('theme')}catch(e){}if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t)}();</script>
@@ -77,13 +77,16 @@
               <path class="nav-toggle__line nav-toggle__line--bottom" d="M4 17h16" />
             </svg>
           </button>
-          <a class="site-header__brand" href="/">Aref Azizian</a>
+          <a class="site-header__brand" href="/">
+            <img class="site-header__mark" src="/assets/icons/android-chrome-192x192.png" alt="" width="28" height="28" />
+            <span class="site-header__name">Aref Azizian</span>
+          </a>
           <nav class="site-nav" id="site-nav" aria-label="Primary">
             <ul class="site-nav__links">
               <li><a href="/">Home</a></li>
-              <li><a href="/papers/">Papers</a></li>
-              <li><a href="/books/" class="is-active" aria-current="page">Books</a></li>
-              <li><a href="/blog/">Blog</a></li>
+              <li><a href="/research/">Research</a></li>
+              <li><a href="/blog/">Writing</a></li>
+              <li><a href="/books/" class="is-active" aria-current="page">Reading</a></li>
               <li><a href="/about/">About</a></li>
             </ul>
           </nav>
@@ -102,11 +105,25 @@
       <section class="section">
         <div class="page">
           <div class="section__inner">
-            <header class="section-header">
-              <span class="eyebrow">Reading</span>
-              <h1 class="section-title">Books</h1>
-              <p class="section-desc">What I'm reading and what I've read.</p>
+            <header class="section-header page-header">
+              <h1 class="page-title">Reading</h1>
+              <p class="section-desc">The books on my desk, and the papers that shaped my work on noisy labels and regularization.</p>
+              <div class="page-art page-art--reading" aria-hidden="true">
+                <svg viewBox="0 0 120 120">
+                  <path class="art-page" d="M60 42C49 36 34 35 18 39v54c16-4 31-3 42 3z" />
+                  <path class="art-page" d="M60 42c11-6 26-7 42-3v54c-16-4-31-3-42 3z" />
+                  <path class="art-page-lines" d="M26 52c9-2 18-2 26 1M26 62c9-2 18-2 26 1M26 72c9-2 18-2 26 1M26 82c9-2 18-2 26 1M68 53c8-3 17-3 26-1M68 63c8-3 17-3 26-1M68 73c8-3 17-3 26-1" />
+                  <path class="art-ribbon" d="M86 37v23l5-4 5 4V37" />
+                  <path class="art-flip" d="M60 42c11-6 26-7 42-3v54c-16-4-31-3-42 3z" />
+                  <path class="art-spine" d="M60 42v54" />
+                </svg>
+              </div>
             </header>
+            <nav class="tabs" aria-label="Reading list">
+              <a class="tabs__link is-active" href="/books/" aria-current="page">Books <span class="tabs__count">6</span></a>
+              <a class="tabs__link" href="/papers/">Papers <span class="tabs__count">7</span></a>
+            </nav>
+            <h2 class="list-group-title">Reading now</h2>
             <ul class="book-list">
               <li>
                 <a
@@ -125,10 +142,7 @@
                     />
                   </div>
                   <div class="book-meta">
-                    <div class="book-meta__header">
-                      <h2 class="book-meta__title">Introduction to Linear Algebra</h2>
-                      <span class="book-status book-status--reading">Currently reading</span>
-                    </div>
+                    <h3 class="book-meta__title">Introduction to Linear Algebra</h3>
                     <p class="book-meta__author">Gilbert Strang &mdash; Wellesley-Cambridge Press, 2023</p>
                   </div>
                 </a>
@@ -150,10 +164,7 @@
                     />
                   </div>
                   <div class="book-meta">
-                    <div class="book-meta__header">
-                      <h2 class="book-meta__title">The Art of PostgreSQL</h2>
-                      <span class="book-status book-status--reading">Currently reading</span>
-                    </div>
+                    <h3 class="book-meta__title">The Art of PostgreSQL</h3>
                     <p class="book-meta__author">Dimitri Fontaine &mdash; Self-published, 2019</p>
                     <p class="book-meta__note">Progress: chapter 5</p>
                   </div>
@@ -176,14 +187,14 @@
                     />
                   </div>
                   <div class="book-meta">
-                    <div class="book-meta__header">
-                      <h2 class="book-meta__title">Understanding Deep Learning</h2>
-                      <span class="book-status book-status--reading">Currently reading</span>
-                    </div>
+                    <h3 class="book-meta__title">Understanding Deep Learning</h3>
                     <p class="book-meta__author">Simon J.D. Prince &mdash; MIT Press, 2023</p>
                   </div>
                 </a>
               </li>
+            </ul>
+            <h2 class="list-group-title">Finished</h2>
+            <ul class="book-list">
               <li>
                 <a
                   class="book-item"
@@ -201,10 +212,7 @@
                     />
                   </div>
                   <div class="book-meta">
-                    <div class="book-meta__header">
-                      <h2 class="book-meta__title">Calculus: A Complete Course</h2>
-                      <span class="book-status book-status--read">Read</span>
-                    </div>
+                    <h3 class="book-meta__title">Calculus: A Complete Course</h3>
                     <p class="book-meta__author">Robert A. Adams &mdash; Addison Wesley, 2003</p>
                   </div>
                 </a>
@@ -226,10 +234,7 @@
                     />
                   </div>
                   <div class="book-meta">
-                    <div class="book-meta__header">
-                      <h2 class="book-meta__title">The Go Programming Language</h2>
-                      <span class="book-status book-status--read">Read</span>
-                    </div>
+                    <h3 class="book-meta__title">The Go Programming Language</h3>
                     <p class="book-meta__author">Alan A.A. Donovan &amp; Brian W. Kernighan &mdash; Addison-Wesley, 2015</p>
                   </div>
                 </a>
@@ -251,10 +256,7 @@
                     />
                   </div>
                   <div class="book-meta">
-                    <div class="book-meta__header">
-                      <h2 class="book-meta__title">C# 10 and .NET 6 &ndash; Modern Cross-Platform Development</h2>
-                      <span class="book-status book-status--read">Read</span>
-                    </div>
+                    <h3 class="book-meta__title">C# 10 and .NET 6 &ndash; Modern Cross-Platform Development</h3>
                     <p class="book-meta__author">Mark J. Price &mdash; Packt Publishing, 2021</p>
                   </div>
                 </a>
@@ -266,11 +268,15 @@
     </main>
 
     <footer class="site-footer page">
-      <p>
-        Copyright &copy;
-        <span id="year"></span>
-        Aref Azizian. All rights reserved.
-      </p>
+      <div class="site-footer__inner">
+        <p>&copy; <span id="year"></span> Aref Azizian</p>
+        <ul class="site-footer__links">
+          <li><a href="mailto:storm.aref@gmail.com">Email</a></li>
+          <li><a href="https://github.com/stormaref" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          <li><a href="https://scholar.google.com/citations?user=ppS6tJUAAAAJ&amp;hl=en&amp;oi=ao" target="_blank" rel="noopener noreferrer">Scholar</a></li>
+          <li><a href="https://linkedin.com/in/arefazizian" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+        </ul>
+      </div>
     </footer>
 
     <script src="/assets/js/site.js" defer></script>

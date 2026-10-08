@@ -17,7 +17,7 @@
     <title>Papers &middot; Aref Azizian</title>
     <meta
       name="description"
-      content="Papers Aref Azizian finds compelling — ML research, label noise, regularisation, and more."
+      content="Papers that shaped Aref Azizian&rsquo;s work on noisy labels and regularization."
     />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="canonical" href="https://stormaref.github.io/papers/" />
@@ -27,7 +27,7 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://stormaref.github.io/papers/" />
     <meta property="og:title" content="Papers &middot; Aref Azizian" />
-    <meta property="og:description" content="Papers Aref Azizian finds compelling — ML research, label noise, regularisation, and more." />
+    <meta property="og:description" content="Papers that shaped Aref Azizian&rsquo;s work on noisy labels and regularization." />
     <meta property="og:image" content="https://stormaref.github.io/assets/me.jpeg" />
     <meta property="og:image:width" content="2105" />
     <meta property="og:image:height" content="1830" />
@@ -38,7 +38,7 @@
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Papers &middot; Aref Azizian" />
-    <meta name="twitter:description" content="Papers Aref Azizian finds compelling — ML research, label noise, regularisation, and more." />
+    <meta name="twitter:description" content="Papers that shaped Aref Azizian&rsquo;s work on noisy labels and regularization." />
     <meta name="twitter:image" content="https://stormaref.github.io/assets/me.jpeg" />
     <meta name="twitter:image:alt" content="Aref Azizian" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -47,12 +47,12 @@
       href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=JetBrains+Mono:wght@400&family=Space+Grotesk:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png" />
-    <link rel="icon" href="/assets/icons/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png?v=3" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png?v=3" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png?v=3" />
+    <link rel="icon" href="/assets/icons/favicon.ico?v=3" sizes="any" />
     <link rel="manifest" href="/manifest.json" />
-    <meta name="msapplication-TileColor" content="#fafafa" />
+    <meta name="msapplication-TileColor" content="#09090b" />
     <meta name="theme-color" content="#fafafa" />
     <link rel="stylesheet" href="/assets/css/site.css" />
     <script>!function(){var t;try{t=localStorage.getItem('theme')}catch(e){}if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t)}();</script>
@@ -77,13 +77,16 @@
               <path class="nav-toggle__line nav-toggle__line--bottom" d="M4 17h16" />
             </svg>
           </button>
-          <a class="site-header__brand" href="/">Aref Azizian</a>
+          <a class="site-header__brand" href="/">
+            <img class="site-header__mark" src="/assets/icons/android-chrome-192x192.png" alt="" width="28" height="28" />
+            <span class="site-header__name">Aref Azizian</span>
+          </a>
           <nav class="site-nav" id="site-nav" aria-label="Primary">
             <ul class="site-nav__links">
               <li><a href="/">Home</a></li>
-              <li><a href="/papers/" class="is-active" aria-current="page">Papers</a></li>
-              <li><a href="/books/">Books</a></li>
-              <li><a href="/blog/">Blog</a></li>
+              <li><a href="/research/">Research</a></li>
+              <li><a href="/blog/">Writing</a></li>
+              <li><a href="/books/" class="is-active" aria-current="true">Reading</a></li>
               <li><a href="/about/">About</a></li>
             </ul>
           </nav>
@@ -102,24 +105,33 @@
       <section class="section">
         <div class="page">
           <div class="section__inner">
-            <header class="section-header">
-              <span class="eyebrow">Reading list</span>
-              <h1 class="section-title">Papers I Read</h1>
-              <p class="section-desc">Research I keep coming back to.</p>
+            <header class="section-header page-header">
+              <h1 class="page-title">Reading</h1>
+              <p class="section-desc">The books on my desk, and the papers that shaped my work on noisy labels and regularization.</p>
+              <div class="page-art page-art--reading" aria-hidden="true">
+                <svg viewBox="0 0 120 120">
+                  <path class="art-page" d="M60 42C49 36 34 35 18 39v54c16-4 31-3 42 3z" />
+                  <path class="art-page" d="M60 42c11-6 26-7 42-3v54c-16-4-31-3-42 3z" />
+                  <path class="art-page-lines" d="M26 52c9-2 18-2 26 1M26 62c9-2 18-2 26 1M26 72c9-2 18-2 26 1M26 82c9-2 18-2 26 1M68 53c8-3 17-3 26-1M68 63c8-3 17-3 26-1M68 73c8-3 17-3 26-1" />
+                  <path class="art-ribbon" d="M86 37v23l5-4 5 4V37" />
+                  <path class="art-flip" d="M60 42c11-6 26-7 42-3v54c-16-4-31-3-42 3z" />
+                  <path class="art-spine" d="M60 42v54" />
+                </svg>
+              </div>
             </header>
-            <div class="tag-filter" data-tag-filter role="group" aria-label="Filter papers by tag">
-              <button type="button" class="tag-filter__btn is-active" data-tag="all" aria-pressed="true">All</button>
-              <button type="button" class="tag-filter__btn" data-tag="label-smoothing" aria-pressed="false">#LabelSmoothing</button>
-              <button type="button" class="tag-filter__btn" data-tag="regularisation" aria-pressed="false">#Regularisation</button>
-              <button type="button" class="tag-filter__btn" data-tag="noisy-labels" aria-pressed="false">#NoisyLabels</button>
-              <button type="button" class="tag-filter__btn" data-tag="lipschitz-continuity" aria-pressed="false">#LipschitzContinuity</button>
-              <button type="button" class="tag-filter__btn" data-tag="classification-margins" aria-pressed="false">#ClassificationMargins</button>
-              <button type="button" class="tag-filter__btn" data-tag="temporal-graphs" aria-pressed="false">#TemporalGraphs</button>
-              <button type="button" class="tag-filter__btn" data-tag="survey" aria-pressed="false">#Survey</button>
+            <nav class="tabs" aria-label="Reading list">
+              <a class="tabs__link" href="/books/">Books <span class="tabs__count">6</span></a>
+              <a class="tabs__link is-active" href="/papers/" aria-current="page">Papers <span class="tabs__count">7</span></a>
+            </nav>
+            <div class="tag-filter" data-tag-filter role="group" aria-label="Filter papers by topic">
+              <button type="button" class="tag-filter__btn is-active" data-tag="all" aria-pressed="true">All <span class="tag-filter__n">7</span></button>
+              <button type="button" class="tag-filter__btn" data-tag="noisy-labels" aria-pressed="false">Noisy labels <span class="tag-filter__n">3</span></button>
+              <button type="button" class="tag-filter__btn" data-tag="regularization" aria-pressed="false">Regularization <span class="tag-filter__n">3</span></button>
+              <button type="button" class="tag-filter__btn" data-tag="graphs" aria-pressed="false">Graphs <span class="tag-filter__n">1</span></button>
             </div>
             <p class="tag-filter__count" data-tag-filter-count aria-live="polite">Showing all 7 papers</p>
             <ul class="project-grid" data-tag-filter-list>
-              <li data-tags="label-smoothing">
+              <li data-tags="regularization">
                 <a class="project-card" href="https://arxiv.org/abs/2011.12562" target="_blank" rel="noopener noreferrer">
                   <div class="project-card__top">
                     <h2 class="project-card__title">Delving Deep into Label Smoothing</h2>
@@ -127,15 +139,12 @@
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
                     </span>
                   </div>
-                  <ul class="tag-list"><li>#LabelSmoothing</li></ul>
-                  <p class="project-card__venue">IEEE TIP 2021</p>
-                  <p class="project-card__desc">
-                    Chang-Bin Zhang, Peng-Tao Jiang, Qibin Hou, Yunchao Wei,
-                    Qi Han, Zhen Li, Ming-Ming Cheng
-                  </p>
+                  <p class="project-card__authors">Chang-Bin Zhang, Peng-Tao Jiang, Qibin Hou, Yunchao Wei, Qi Han, Zhen Li, Ming-Ming Cheng</p>
+                  <p class="project-card__venue">IEEE TIP &middot; 2021</p>
+                  <ul class="tag-list"><li>Regularization</li><li>Label smoothing</li></ul>
                 </a>
               </li>
-              <li data-tags="regularisation">
+              <li data-tags="regularization">
                 <a class="project-card" href="https://jmlr.org/papers/v15/srivastava14a.html" target="_blank" rel="noopener noreferrer">
                   <div class="project-card__top">
                     <h2 class="project-card__title">Dropout: A Simple Way to Prevent Neural Networks from Overfitting</h2>
@@ -143,12 +152,9 @@
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
                     </span>
                   </div>
-                  <ul class="tag-list"><li>#Regularisation</li></ul>
-                  <p class="project-card__venue">JMLR 2014</p>
-                  <p class="project-card__desc">
-                    Nitish Srivastava, Geoffrey Hinton, Alex Krizhevsky,
-                    Ilya Sutskever, Ruslan Salakhutdinov
-                  </p>
+                  <p class="project-card__authors">Nitish Srivastava, Geoffrey Hinton, Alex Krizhevsky, Ilya Sutskever, Ruslan Salakhutdinov</p>
+                  <p class="project-card__venue">JMLR &middot; 2014</p>
+                  <ul class="tag-list"><li>Regularization</li><li>Dropout</li></ul>
                 </a>
               </li>
               <li data-tags="noisy-labels">
@@ -159,16 +165,12 @@
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
                     </span>
                   </div>
-                  <ul class="tag-list"><li>#NoisyLabels</li></ul>
-                  <p class="project-card__venue">NeurIPS 2020</p>
-                  <p class="project-card__desc">
-                    Xiaobo Xia, Tongliang Liu, Bo Han, Nannan Wang,
-                    Mingming Gong, Haifeng Liu, Gang Niu, Dacheng Tao,
-                    Masashi Sugiyama
-                  </p>
+                  <p class="project-card__authors">Xiaobo Xia, Tongliang Liu, Bo Han, Nannan Wang, Mingming Gong, Haifeng Liu, Gang Niu, Dacheng Tao, Masashi Sugiyama</p>
+                  <p class="project-card__venue">NeurIPS &middot; 2020</p>
+                  <ul class="tag-list"><li>Noisy labels</li></ul>
                 </a>
               </li>
-              <li data-tags="lipschitz-continuity">
+              <li data-tags="regularization">
                 <a class="project-card" href="https://arxiv.org/abs/2302.10886" target="_blank" rel="noopener noreferrer">
                   <div class="project-card__top">
                     <h2 class="project-card__title">Some Fundamental Aspects about Lipschitz Continuity of Neural Networks</h2>
@@ -176,14 +178,12 @@
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
                     </span>
                   </div>
-                  <ul class="tag-list"><li>#LipschitzContinuity</li></ul>
-                  <p class="project-card__venue">arXiv 2023</p>
-                  <p class="project-card__desc">
-                    Grigory Khromov, Sidak Pal Singh
-                  </p>
+                  <p class="project-card__authors">Grigory Khromov, Sidak Pal Singh</p>
+                  <p class="project-card__venue">arXiv &middot; 2023</p>
+                  <ul class="tag-list"><li>Regularization</li><li>Lipschitz continuity</li></ul>
                 </a>
               </li>
-              <li data-tags="noisy-labels classification-margins">
+              <li data-tags="noisy-labels">
                 <a class="project-card" href="https://arxiv.org/abs/2102.00751" target="_blank" rel="noopener noreferrer">
                   <div class="project-card__top">
                     <h2 class="project-card__title">Learning to Combat Noisy Labels via Classification Margins</h2>
@@ -191,14 +191,12 @@
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
                     </span>
                   </div>
-                  <ul class="tag-list"><li>#NoisyLabels</li><li>#ClassificationMargins</li></ul>
-                  <p class="project-card__venue">arXiv 2021</p>
-                  <p class="project-card__desc">
-                    Jason Z. Lin, Jelena Bradic
-                  </p>
+                  <p class="project-card__authors">Jason Z. Lin, Jelena Bradic</p>
+                  <p class="project-card__venue">arXiv &middot; 2021</p>
+                  <ul class="tag-list"><li>Noisy labels</li><li>Classification margins</li></ul>
                 </a>
               </li>
-              <li data-tags="temporal-graphs">
+              <li data-tags="graphs">
                 <a class="project-card" href="https://arxiv.org/abs/2006.10637" target="_blank" rel="noopener noreferrer">
                   <div class="project-card__top">
                     <h2 class="project-card__title">Temporal Graph Networks for Deep Learning on Dynamic Graphs</h2>
@@ -206,15 +204,12 @@
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
                     </span>
                   </div>
-                  <ul class="tag-list"><li>#TemporalGraphs</li></ul>
-                  <p class="project-card__venue">arXiv 2020</p>
-                  <p class="project-card__desc">
-                    Emanuele Rossi, Ben Chamberlain, Fabrizio Frasca, Davide Eynard,
-                    Federico Monti, Michael Bronstein
-                  </p>
+                  <p class="project-card__authors">Emanuele Rossi, Ben Chamberlain, Fabrizio Frasca, Davide Eynard, Federico Monti, Michael Bronstein</p>
+                  <p class="project-card__venue">arXiv &middot; 2020</p>
+                  <ul class="tag-list"><li>Temporal graphs</li></ul>
                 </a>
               </li>
-              <li data-tags="noisy-labels survey">
+              <li data-tags="noisy-labels">
                 <a class="project-card" href="https://arxiv.org/abs/2007.08199" target="_blank" rel="noopener noreferrer">
                   <div class="project-card__top">
                     <h2 class="project-card__title">Learning from Noisy Labels with Deep Neural Networks: A Survey</h2>
@@ -222,11 +217,9 @@
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
                     </span>
                   </div>
-                  <ul class="tag-list"><li>#NoisyLabels</li><li>#Survey</li></ul>
-                  <p class="project-card__venue">IEEE TNNLS 2022</p>
-                  <p class="project-card__desc">
-                    Hwanjun Song, Minseok Kim, Dongmin Park, Yooju Shin, Jae-Gil Lee
-                  </p>
+                  <p class="project-card__authors">Hwanjun Song, Minseok Kim, Dongmin Park, Yooju Shin, Jae-Gil Lee</p>
+                  <p class="project-card__venue">IEEE TNNLS &middot; 2022</p>
+                  <ul class="tag-list"><li>Noisy labels</li><li>Survey</li></ul>
                 </a>
               </li>
             </ul>
@@ -236,11 +229,15 @@
     </main>
 
     <footer class="site-footer page">
-      <p>
-        Copyright &copy;
-        <span id="year"></span>
-        Aref Azizian. All rights reserved.
-      </p>
+      <div class="site-footer__inner">
+        <p>&copy; <span id="year"></span> Aref Azizian</p>
+        <ul class="site-footer__links">
+          <li><a href="mailto:storm.aref@gmail.com">Email</a></li>
+          <li><a href="https://github.com/stormaref" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          <li><a href="https://scholar.google.com/citations?user=ppS6tJUAAAAJ&amp;hl=en&amp;oi=ao" target="_blank" rel="noopener noreferrer">Scholar</a></li>
+          <li><a href="https://linkedin.com/in/arefazizian" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+        </ul>
+      </div>
     </footer>
 
     <script src="/assets/js/site.js" defer></script>
