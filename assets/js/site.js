@@ -196,8 +196,8 @@
 
   // Hero portrait intro: the photo is denoised out of noise like a diffusion
   // sampler. The head script on pages with a portrait adds .gen-photo to
-  // <html> (hiding the <img>) unless reduced motion is set or the intro
-  // already played this session. Clicking the portrait replays it.
+  // <html> (hiding the <img>) unless reduced motion is set. Clicking the
+  // portrait replays it.
   var genFigure = document.querySelector(".hero__photo");
   var genImg = genFigure && genFigure.querySelector("img");
   if (genImg && !reducedMotion) {
@@ -388,12 +388,7 @@
       } else {
         // Hide the photo (and cancel the CSS fallback) until the intro starts.
         figure.classList.add("is-generating");
-        whenLoadedAndVisible(function () {
-          try {
-            sessionStorage.setItem("gen-photo", "1");
-          } catch (e) {}
-          play();
-        });
+        whenLoadedAndVisible(play);
       }
     }
 
