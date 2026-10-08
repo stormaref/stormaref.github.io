@@ -308,9 +308,13 @@ textarea:focus-visible {
   transform: rotate(-8deg);
 }
 
-/* The mark is a near-black tile; give it an edge on the dark bar */
+/* The mark is an off-white tile; a hairline keeps its edge on the white bar */
+.site-header__mark {
+  box-shadow: 0 0 0 1px rgba(9, 9, 11, 0.1);
+}
+
 [data-theme="dark"] .site-header__mark {
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.14);
+  box-shadow: none;
 }
 
 .site-nav {
