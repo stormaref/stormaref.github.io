@@ -121,16 +121,96 @@
             </header>
             <nav class="tabs" aria-label="Reading list">
               <a class="tabs__link" href="/books/">Books <span class="tabs__count">7</span></a>
-              <a class="tabs__link is-active" href="/papers/" aria-current="page">Papers <span class="tabs__count">7</span></a>
+              <a class="tabs__link is-active" href="/papers/" aria-current="page">Papers <span class="tabs__count">13</span></a>
             </nav>
             <div class="tag-filter" data-tag-filter role="group" aria-label="Filter papers by topic">
-              <button type="button" class="tag-filter__btn is-active" data-tag="all" aria-pressed="true">All <span class="tag-filter__n">7</span></button>
-              <button type="button" class="tag-filter__btn" data-tag="noisy-labels" aria-pressed="false">Noisy labels <span class="tag-filter__n">3</span></button>
-              <button type="button" class="tag-filter__btn" data-tag="regularization" aria-pressed="false">Regularization <span class="tag-filter__n">3</span></button>
+              <button type="button" class="tag-filter__btn is-active" data-tag="all" aria-pressed="true">All <span class="tag-filter__n">13</span></button>
+              <button type="button" class="tag-filter__btn" data-tag="noisy-labels" aria-pressed="false">Noisy labels <span class="tag-filter__n">7</span></button>
+              <button type="button" class="tag-filter__btn" data-tag="regularization" aria-pressed="false">Regularization <span class="tag-filter__n">4</span></button>
+              <button type="button" class="tag-filter__btn" data-tag="semi-supervised" aria-pressed="false">Semi-supervised <span class="tag-filter__n">2</span></button>
+              <button type="button" class="tag-filter__btn" data-tag="theory" aria-pressed="false">Theory <span class="tag-filter__n">2</span></button>
               <button type="button" class="tag-filter__btn" data-tag="graphs" aria-pressed="false">Graphs <span class="tag-filter__n">1</span></button>
             </div>
-            <p class="tag-filter__count" data-tag-filter-count aria-live="polite">Showing all 7 papers</p>
+            <p class="tag-filter__count" data-tag-filter-count aria-live="polite">Showing all 13 papers</p>
             <ul class="project-grid" data-tag-filter-list>
+              <li data-tags="noisy-labels">
+                <a class="project-card" href="https://arxiv.org/abs/1706.02613" target="_blank" rel="noopener noreferrer">
+                  <div class="project-card__top">
+                    <h2 class="project-card__title">Decoupling &ldquo;when to update&rdquo; from &ldquo;how to update&rdquo;</h2>
+                    <span class="project-card__icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+                    </span>
+                  </div>
+                  <p class="project-card__authors">Eran Malach, Shai Shalev-Shwartz</p>
+                  <p class="project-card__venue">NeurIPS &middot; 2017</p>
+                  <ul class="tag-list"><li>Noisy labels</li><li>Co-training</li></ul>
+                </a>
+              </li>
+              <li data-tags="noisy-labels semi-supervised">
+                <a class="project-card" href="https://arxiv.org/abs/2002.07394" target="_blank" rel="noopener noreferrer">
+                  <div class="project-card__top">
+                    <h2 class="project-card__title">DivideMix: Learning with Noisy Labels as Semi-supervised Learning</h2>
+                    <span class="project-card__icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+                    </span>
+                  </div>
+                  <p class="project-card__authors">Junnan Li, Richard Socher, Steven C.H. Hoi</p>
+                  <p class="project-card__venue">ICLR &middot; 2020</p>
+                  <ul class="tag-list"><li>Noisy labels</li><li>Semi-supervised</li></ul>
+                </a>
+              </li>
+              <li data-tags="semi-supervised">
+                <a class="project-card" href="https://arxiv.org/abs/1905.02249" target="_blank" rel="noopener noreferrer">
+                  <div class="project-card__top">
+                    <h2 class="project-card__title">MixMatch: A Holistic Approach to Semi-Supervised Learning</h2>
+                    <span class="project-card__icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+                    </span>
+                  </div>
+                  <p class="project-card__authors">David Berthelot, Nicholas Carlini, Ian Goodfellow, Nicolas Papernot, Avital Oliver, Colin Raffel</p>
+                  <p class="project-card__venue">NeurIPS &middot; 2019</p>
+                  <ul class="tag-list"><li>Semi-supervised</li><li>Mixup</li></ul>
+                </a>
+              </li>
+              <li data-tags="noisy-labels theory">
+                <a class="project-card" href="https://arxiv.org/abs/2411.00079" target="_blank" rel="noopener noreferrer">
+                  <div class="project-card__top">
+                    <h2 class="project-card__title">Label Noise: Ignorance Is Bliss</h2>
+                    <span class="project-card__icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+                    </span>
+                  </div>
+                  <p class="project-card__authors">Yilun Zhu, Jianxin Zhang, Aditya Gangrade, Clayton Scott</p>
+                  <p class="project-card__venue">NeurIPS &middot; 2024</p>
+                  <ul class="tag-list"><li>Noisy labels</li><li>Theory</li></ul>
+                </a>
+              </li>
+              <li data-tags="regularization">
+                <a class="project-card" href="https://arxiv.org/abs/1710.09412" target="_blank" rel="noopener noreferrer">
+                  <div class="project-card__top">
+                    <h2 class="project-card__title">mixup: Beyond Empirical Risk Minimization</h2>
+                    <span class="project-card__icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+                    </span>
+                  </div>
+                  <p class="project-card__authors">Hongyi Zhang, Moustapha Cisse, Yann N. Dauphin, David Lopez-Paz</p>
+                  <p class="project-card__venue">ICLR &middot; 2018</p>
+                  <ul class="tag-list"><li>Regularization</li><li>Data augmentation</li></ul>
+                </a>
+              </li>
+              <li data-tags="noisy-labels">
+                <a class="project-card" href="https://openreview.net/forum?id=H12GRgcxg" target="_blank" rel="noopener noreferrer">
+                  <div class="project-card__top">
+                    <h2 class="project-card__title">Training Deep Neural-Networks Using a Noise Adaptation Layer</h2>
+                    <span class="project-card__icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+                    </span>
+                  </div>
+                  <p class="project-card__authors">Jacob Goldberger, Ehud Ben-Reuven</p>
+                  <p class="project-card__venue">ICLR &middot; 2017</p>
+                  <ul class="tag-list"><li>Noisy labels</li><li>Transition matrix</li></ul>
+                </a>
+              </li>
               <li data-tags="regularization">
                 <a class="project-card" href="https://arxiv.org/abs/2011.12562" target="_blank" rel="noopener noreferrer">
                   <div class="project-card__top">
@@ -170,7 +250,7 @@
                   <ul class="tag-list"><li>Noisy labels</li></ul>
                 </a>
               </li>
-              <li data-tags="regularization">
+              <li data-tags="regularization theory">
                 <a class="project-card" href="https://arxiv.org/abs/2302.10886" target="_blank" rel="noopener noreferrer">
                   <div class="project-card__top">
                     <h2 class="project-card__title">Some Fundamental Aspects about Lipschitz Continuity of Neural Networks</h2>
@@ -179,7 +259,7 @@
                     </span>
                   </div>
                   <p class="project-card__authors">Grigory Khromov, Sidak Pal Singh</p>
-                  <p class="project-card__venue">arXiv &middot; 2023</p>
+                  <p class="project-card__venue">ICLR &middot; 2024</p>
                   <ul class="tag-list"><li>Regularization</li><li>Lipschitz continuity</li></ul>
                 </a>
               </li>
